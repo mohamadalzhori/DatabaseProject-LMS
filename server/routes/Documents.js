@@ -22,6 +22,24 @@ router.get('/:gradeId/:subjectId/:lessonId', async (req, res) => {
   }
 });
 
+// Fetch all Documents by grade
+router.get('/:gradeId', async (req, res) => {
+  const { gradeId} = req.params;
+
+  try {
+    const documents = await Documents.findAll({
+      where: {  
+        grade_id: gradeId,
+      },
+    });
+    res.json(documents);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 // Fetch all Documents
 router.get('/', async (req, res) => {
   try {

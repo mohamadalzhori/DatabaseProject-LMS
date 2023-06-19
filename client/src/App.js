@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useNavigate } from 'react-router-dom';
 import Home from './Components/Home';
 import JobApplication from './Components/JobApplication';
 import StudentLogin from './Components/StudentLogin';
@@ -16,6 +17,7 @@ import ManagerDash from './Components/ManagerDash';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!sessionStorage.getItem('accessToken'));
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     // Perform the login operation
@@ -30,11 +32,13 @@ function App() {
     sessionStorage.removeItem('grade');
     sessionStorage.removeItem('type');
     setIsLoggedIn(false);
+    navigate('/'); // Navigate to the home page
+
   };
 
   return (
     <div className="App">
-      <Router>
+      
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Container>
             <Navbar.Brand as={Link} to="/">Navbar</Navbar.Brand>
@@ -42,11 +46,17 @@ function App() {
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="ms-auto">
                 <Nav.Link as={Link} to="/">Home</Nav.Link>
+                <Nav.Link as={Link} to="/jobapplication">Job Application</Nav.Link>
 
-                {isLoggedIn && <Nav.Link as={Link} to="/">test</Nav.Link>}
 
                 {isLoggedIn ? (
-                  <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                  <>
+                  <NavDropdown title={sessionStorage.getItem('username')} id="collasible-nav-dropdown">
+                    <NavDropdown.Item as={Link} to="/studentDash">Dashboard</NavDropdown.Item>
+                    <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                  </NavDropdown>
+
+                  </>
                 ) : (
                   <NavDropdown title="Login" id="collasible-nav-dropdown">
                     <NavDropdown.Item as={Link} to="/StudentLogin">Students</NavDropdown.Item>
@@ -56,7 +66,7 @@ function App() {
                   </NavDropdown>
                 )}
 
-                <Nav.Link as={Link} to="/jobapplication">Job Application</Nav.Link>
+                
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -74,7 +84,7 @@ function App() {
           <Route path="/teacherDash" element={<TeacherDash />} />
           <Route path="/managerDash" element={<ManagerDash />} />
         </Routes>
-      </Router>
+      
     </div>
   );
 }
