@@ -22,7 +22,7 @@ router.get('/:gradeId/:subjectId/:lessonId', async (req, res) => {
   }
 });
 
-// Fetch all Documents by grade
+// Fetch all Documents by grade (I created this to avoid an error in the console, where a getrequest with only grade is being made)
 router.get('/:gradeId', async (req, res) => {
   const { gradeId} = req.params;
 
@@ -40,7 +40,7 @@ router.get('/:gradeId', async (req, res) => {
 });
 
 
-// Fetch all Documents
+// Fetch all Documents (I created this to avoid an error in the console because a getrequest with no parameters was being made)
 router.get('/', async (req, res) => {
   try {
     const documents = await Documents.findAll();

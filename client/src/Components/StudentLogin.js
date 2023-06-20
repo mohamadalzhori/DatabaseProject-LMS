@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import './style.css';
 import axios from 'axios';
 
+// Notice here we have the onLogin prop passed from the 
 function StudentLogin({ onLogin }) {
+  // Creating varialbes to be used in the form
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
