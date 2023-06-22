@@ -21,11 +21,12 @@ function StudentLogin({ onLogin }) {
   };
 
   const handleSubmit = (event) => {
+    // In browsers the defaul submit reloads the page but we don't want this, we want to navigate to a certain page so we disable the default submit behaviour
     event.preventDefault();
 
     const data = {
-      username: username,
-      password: password
+      username,
+      password,
     };
 
     axios.post('http://localhost:3001/authStudents/login', data)
@@ -33,11 +34,12 @@ function StudentLogin({ onLogin }) {
         if (response.data.error) {
           alert(response.data.error);
         } else {
-          const { accessToken, name, grade } = response.data;
+          // if the request is successful we push accessToken, name and grade into the sessionStorage in order to use them in the Dashboard
+          const { accessToken, username, grade } = response.data;
           sessionStorage.setItem('accessToken', accessToken);
           sessionStorage.setItem('username', username);
           sessionStorage.setItem('grade', grade);
-          sessionStorage.setItem('type', 'student');
+          // sessionStorage.setItem('type', 'student');
           onLogin(); // Invoke the onLogin callback DAAAAAAAAAAAAAAAAAAAAAAAAAAMN
           navigate('/studentDash');
         }
@@ -53,7 +55,6 @@ function StudentLogin({ onLogin }) {
             <Form.Label>Username</Form.Label>
             <Form.Control type="text" placeholder="Enter username" value={username} onChange={handleUsernameChange} />
           </Form.Group>
-
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />

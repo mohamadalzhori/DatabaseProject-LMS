@@ -33,7 +33,12 @@ router.post('/login', async (req, res) => {
       }
       
       const accessToken = sign({username: user.username, id: user.id}, "importantsecret");
-      res.json(accessToken);
+      const teacherData = {
+        accessToken: accessToken,
+        username: user.username, // Assuming you have a 'username' property in the 'teachers' model
+      };
+  
+      res.json(teacherData);
     });
   });
   

@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from 'react-router-dom';
 import './style.css';
 import axios from 'axios';
 
-function TeachersLogin() {
+// Notice here we have the onLogin prop passed from the 
+function TeacherLogin({ onLogin }) {
+  // Creating varialbes to be used in the form
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -17,20 +21,28 @@ function TeachersLogin() {
   };
 
   const handleSubmit = (event) => {
+    // In browsers the defaul submit reloads the page but we don't want this, we want to navigate to a certain page so we disable the default submit behaviour
     event.preventDefault();
 
     const data = {
-      username: username,
-      password: password
+      username,
+      password,
     };
 
-    axios.post('http://localhost:3001/authTeachers/login', data).then((response) => {
-      if (response.data.error) {
-        alert(response.data.error);
-      } else {
-        sessionStorage.setItem("accessToken", response.data);
-      }
-    })
+    axios.post('http://localhost:3001/authTeachers/login', data)
+      .then((response) => {
+        if (response.data.error) {
+          alert(response.data.error);
+        } else {
+          // if the request is successful we push accessToken, name and grade into the sessionStorage in order to use them in the Dashboard
+          const { accessToken, name} = response.data;
+          sessionStorage.setItem('accessToken', accessToken);
+          sessionStorage.setItem('username', username);
+          // sessionStorage.setItem('type', 'student');
+          onLogin(); // Invoke the onLogin callback DAAAAAAAAAAAAAAAAAAAAAAAAAAMN
+          navigate('/TeacherDash');
+        }
+      });
   };
 
   return (
@@ -42,7 +54,6 @@ function TeachersLogin() {
             <Form.Label>Username</Form.Label>
             <Form.Control type="text" placeholder="Enter username" value={username} onChange={handleUsernameChange} />
           </Form.Group>
-
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
@@ -57,4 +68,4 @@ function TeachersLogin() {
   );
 }
 
-export default TeachersLogin;
+export default TeacherLogin;

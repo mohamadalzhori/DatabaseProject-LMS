@@ -36,7 +36,7 @@ function App() {
     sessionStorage.removeItem('accessToken');
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('grade');
-    sessionStorage.removeItem('type');
+    // sessionStorage.removeItem('type');
     setIsLoggedIn(false);
     navigate('/'); // Navigate to the home page
   };

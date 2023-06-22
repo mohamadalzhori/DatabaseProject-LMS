@@ -1,18 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const { Lessons } = require("../models");
+const { Marks } = require("../models");
 
-// Fetch lessons by subject ID and grade ID
+// Fetch homeworks by grade ID
 router.get('/:gradeId', async (req, res) => {
   const { gradeId } = req.params;
 
   try {
-    const lessons = await Lessons.findAll({
+    const marks = await Marks.findAll({
       where: {  
         grade_id: gradeId },
     });
 
-    res.json(lessons);
+    res.json(marks);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -21,15 +21,15 @@ router.get('/:gradeId', async (req, res) => {
 
 // easy sol for a picky error
 router.get('/', async (req, res)=>{
-  res.json(await Lessons.findAll());
+  res.json(await Marks.findAll());
 });
 
 
 
 router.post('/', async (req, res) => {
   try {
-    const lesson = await Lessons.create(req.body);
-    res.json(lesson);
+    const marks = await Marks.create(req.body);
+    res.json(marks);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

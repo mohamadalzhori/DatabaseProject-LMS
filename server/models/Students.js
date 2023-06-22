@@ -8,11 +8,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      grade: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+      points: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     });
+
+    Students.associate = (models) => {
+      Students.belongsTo(models.Grades, { foreignKey: 'grade_id' });
+    };
   
     return Students;
   };
