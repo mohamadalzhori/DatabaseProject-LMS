@@ -1,14 +1,33 @@
 const express = require("express");
 const router = express.Router();
-const {SuccessStories} = require("../models");
+const {SuccessStories, Students} = require("../models");
 
 router.get('/', async (req, res)=>{
     res.json(await SuccessStories.findAll());
 });
 
 router.post('/', async (req, res)=>{
-    await SuccessStories.create(req.body);
-    res.json(req.body);
+    try{
+        const {username, story} = req.body;
+        
+        const student = await Students.findOne({
+            where: {
+              username
+            }
+          });
+
+        const successstory = await SuccessStories.create({
+            story,
+            student_id: student.id ,
+        });
+
+        res.json(successstory);
+
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+    
 });
 
 

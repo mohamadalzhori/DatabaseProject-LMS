@@ -13,11 +13,15 @@ function StudentDash() {
   const [HW, setHW] = useState([]);
   const [marks, setMarks] = useState([]);
 
-
-  // when subject is changed, we fetch the lessons
   useEffect(() => {
     fetchLessons();
-  }, [selectedSubjectLessons]);
+  }, []);
+
+
+  // when subject is changed, we fetch the lessons
+  // useEffect(() => {
+  //   fetchLessons();
+  // }, [selectedSubjectLessons]);
   
   // when lessons changed, we fetch new documents
   useEffect(() => {
@@ -95,7 +99,8 @@ function StudentDash() {
   const filteredHW = HW.filter((hw) => hw.subject_id == selectedSubjectHW);
   const filteredMarks = marks.filter((mark) => mark.subject_id == selectedSubjectMarks);
   
-  console.log(filteredMarks);
+console.log(lessons);
+
   return (
     <div>
       <h1>Hello, {sessionStorage.getItem('username')}</h1>

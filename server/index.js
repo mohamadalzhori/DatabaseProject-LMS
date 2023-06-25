@@ -43,8 +43,11 @@ app.use('/homeworks', homeworksRouter);
 const marksRouter = require("./routes/Marks");
 app.use('/marks', marksRouter);
 
-const SuccessStoriesRouter = require("./routes/SuccessStories");
-app.use('/successstories', SuccessStoriesRouter);
+const successStoriesRouter = require("./routes/SuccessStories");
+app.use('/successstories', successStoriesRouter);
+
+const attendanceRouter = require("./routes/Attendance");
+app.use('/attendance', attendanceRouter);
 
 
 db.sequelize.sync().then(() => {

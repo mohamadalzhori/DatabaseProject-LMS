@@ -64,7 +64,7 @@ router.post('/login', async (req, res) => {
       const studentData = {
         accessToken: accessToken,
         username: user.username, // Assuming you have a 'name' property in the 'Students' model
-        grade: user.grade // Assuming you have a 'grade' property in the 'Students' model
+        grade: user.grade_id // Assuming you have a 'grade' property in the 'Students' model
       };
   
       res.json(studentData);
