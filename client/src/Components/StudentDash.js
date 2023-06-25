@@ -99,7 +99,7 @@ function StudentDash() {
   const filteredHW = HW.filter((hw) => hw.subject_id == selectedSubjectHW);
   const filteredMarks = marks.filter((mark) => mark.subject_id == selectedSubjectMarks);
   
-console.log(lessons);
+// console.log(lessons);
 
   return (
     <div>
