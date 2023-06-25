@@ -7,14 +7,14 @@ function SuccessStories() {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState('');
   const [story, setStory] = useState('');
-  
+
   useEffect(()=>{
     fetchStudents();
   },[]);
 
   const fetchStudents = async ()=>{
     try{
-      const response = await fetch('http://localhost:3001/successstories'); 
+      const response = await fetch('http://localhost:3001/authstudents'); 
       const data = await response.json();
       setStudents(data);
     }catch (error){
@@ -27,23 +27,28 @@ function SuccessStories() {
     event.preventDefault();
 
     const data = {
+      story,
       username:selectedStudent,
+      
     };
 
-    axios.post(`http://localhost:3001/authStudents`, data)
+    axios.post(`http://localhost:3001/successstories`, data)
       .then((response) => {
         if (response.data.error) {
           alert(response.data.error);
         }else{
-            alert("Modifications Submitted Successfully");
-
+            alert("Story Submitted Successfully");
             setSelectedStudent('');
-            fetchStudents();
+            setStory('');
       
         }
       });
   };
 
+  // console.log(selectedStudent);
+  // console.log(story);
+
+  const remainingCharacters = 255 - story.length;
 
   return (
     <div>
@@ -56,13 +61,22 @@ function SuccessStories() {
               <option key={student.id} >{student.username}</option>
             ))}
 
+
           </Form.Select> 
                 <br />
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Success Story</Form.Label>
-            <Form.Control as="textarea" rows={3} />
+            <Form.Control maxLength={255} as="textarea" rows={3} value={story} onChange={(e)=>{setStory(e.target.value)}} />
           </Form.Group>
-
+          <Form.Text className="text-muted">
+          {remainingCharacters} characters remaining
+          </Form.Text>
+            <br />
+                <br />
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>          
+                
       </Form>
                                     
 

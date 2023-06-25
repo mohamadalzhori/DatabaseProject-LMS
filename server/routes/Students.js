@@ -59,18 +59,20 @@ router.post("/login", async (req, res) => {
     if (!match) {
       return res.json({ error: "Wrong Username and Password Combination" });
     }
-    const accessToken = sign(
-      { username: user.username, id: user.id },
-      "importantsecret"
-    );
-    const studentData = {
-      accessToken: accessToken,
-      username: user.username, // Assuming you have a 'name' property in the 'Students' model
-      grade: user.grade, // Assuming you have a 'grade' property in the 'Students' model
-    };
-
-    res.json(studentData);
+  
+    bcrypt.compare(password, user.password).then((match) => {
+      if (!match) {
+        return res.json({ error: "Wrong Username and Password Combination" });
+      }
+      const accessToken = sign({username: user.username, id: user.id}, "importantsecret");
+      const studentData = {
+        accessToken: accessToken,
+        username: user.username, // Assuming you have a 'name' property in the 'Students' model
+        grade: user.grade_id // Assuming you have a 'grade' property in the 'Students' model
+      };
+  
+      res.json(studentData);
+    });
   });
-});
-
+  
 module.exports = router;

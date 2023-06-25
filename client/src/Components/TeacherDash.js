@@ -6,6 +6,7 @@ import Tab from 'react-bootstrap/Tab';
 import Marks from './Marks';
 import PointsDashboard from './PointsDashboard';
 import SuccessStories from './SuccessStories';
+import Attendance from './Attendance';
 function TeacherDash() {
 
 
@@ -26,6 +27,9 @@ function TeacherDash() {
             <ListGroup.Item action href="#link3">
               Success Stories
             </ListGroup.Item>
+            <ListGroup.Item action href="#link4">
+              Attendance
+            </ListGroup.Item>
           </ListGroup>
         </Col>
         <Col sm={8}>
@@ -38,6 +42,9 @@ function TeacherDash() {
             </Tab.Pane>
             <Tab.Pane eventKey="#link3">
                 <SuccessStories />
+            </Tab.Pane>
+            <Tab.Pane eventKey="#link4">
+                <Attendance />
             </Tab.Pane>
           </Tab.Content>
         </Col>
