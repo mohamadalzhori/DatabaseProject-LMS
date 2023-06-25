@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Students } = require("../models");
 const bcrypt = require("bcrypt");
-//test kalaoun
+//test kalaoun, ok
 
 const { sign } = require("jsonwebtoken");
 
