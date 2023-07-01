@@ -3,6 +3,8 @@ import Accordion from "react-bootstrap/Accordion";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Button from "react-bootstrap/Button";
+import "./StudentDash.css";
+import Cards from "./Cards";
 
 function StudentDash() {
   const [selectedSubjectLessons, setselectedSubjectLessons] = useState("1"); // this tells which subject is active in order to fetch the corresponding lessons
@@ -13,6 +15,7 @@ function StudentDash() {
   const [HW, setHW] = useState([]);
   const [marks, setMarks] = useState([]);
   const [activeSection, setActiveSection] = useState("homeworks");
+
   // Function to handle section change
   const handleSectionChange = (section) => {
     setActiveSection(section);
@@ -114,6 +117,10 @@ function StudentDash() {
   return (
     <div>
       <h1>Hello, {sessionStorage.getItem("username")}</h1>
+      <div>
+        <h1>Some Courses</h1>
+      </div>
+      <Cards />
       <Button
         variant="outline-primary"
         onClick={() => handleSectionChange("homeworks")}
