@@ -61,12 +61,16 @@ const Cards = () => {
                 href="#"
                 className="card"
                 onClick={() => handleCardClick(card.title)}
+                style={{ textDecoration: "none", color: "inherit" }}
               >
                 <img
                   src={card.src}
                   className="card-img-top"
                   alt={card.title}
-                  style={{ objectFit: "cover", height: "300px" }}
+                  style={{
+                    width: "200px",
+                    height: "150px",
+                  }}
                 />
                 <div className="card-body">
                   <h5 className="card-title">{card.title}</h5>
