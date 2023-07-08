@@ -15,10 +15,15 @@ function StudentDash() {
   const [HW, setHW] = useState([]);
   const [marks, setMarks] = useState([]);
   const [activeSection, setActiveSection] = useState("homeworks");
+  const [activeSubject, setActiveSubject] = useState("arabic");
 
   // Function to handle section change
   const handleSectionChange = (section) => {
     setActiveSection(section);
+  };
+
+  const handleSetActiveSubject = (subjectName) => {
+    setActiveSubject(subjectName);
   };
 
   // when subject is changed, we fetch the lessons
@@ -116,7 +121,8 @@ function StudentDash() {
 
   return (
     <div>
-      <OnlineCourses />
+      <OnlineCourses setActiveSubject={handleSetActiveSubject} />
+      <h1>{activeSubject}</h1>
       <div className="text-center">
         <Button
           variant="outline-primary"

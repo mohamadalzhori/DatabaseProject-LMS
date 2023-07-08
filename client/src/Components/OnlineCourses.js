@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./courses.css";
+import Button from "react-bootstrap/Button";
 
-const OnlineCourses = () => {
+const OnlineCourses = ({ setActiveSubject }) => {
+  const [activeSubjectState, setActiveSubjectState] = useState("arabic");
+
+  const subject = (subjectName) => {
+    setActiveSubjectState(subjectName);
+    setActiveSubject(subjectName);
+  };
+
   const online = [
     {
       cover: "./images/courses/online/o1.png",
@@ -50,7 +58,7 @@ const OnlineCourses = () => {
           </div>
           <div className="content grid3">
             {online.map((val) => (
-              <div className="box">
+              <div className="box" onClick={() => subject(val.courseName)}>
                 <div className="img">
                   <img src={val.cover} />
                   <img src={val.hoverCover} alt="" className="show" />
