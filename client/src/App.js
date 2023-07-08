@@ -14,8 +14,7 @@ import ManagerLogin from "./Components/ManagerLogin";
 import StudentDash from "./Components/StudentDash";
 import TeacherDash from "./Components/TeacherDash";
 import ManagerDash from "./Components/ManagerDash";
-import SideBar from "./Components/SideBar";
-import Cards from "./Components/Cards";
+import OnlineCourses from "./Components/OnlineCourses";
 
 function App() {
   // the !! converts the value to boolean if accessToken= value then true, if null then false
@@ -99,7 +98,6 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <SideBar />
       <div className="content">
         <Routes>
           {/* This is how we connect the url to the components */}
@@ -124,7 +122,7 @@ function App() {
           <Route path="/studentDash" element={<StudentDash />} />
           <Route path="/teacherDash" element={<TeacherDash />} />
           <Route path="/managerDash" element={<ManagerDash />} />
-          <Route path="/cards" element={<Cards />} />
+          <Route path="/OnlineCourses" element={<OnlineCourses />} />
         </Routes>
       </div>
     </div>

@@ -4,7 +4,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Button from "react-bootstrap/Button";
 import "./StudentDash.css";
-import Cards from "./Cards";
+import OnlineCourses from "./OnlineCourses";
 
 function StudentDash() {
   const [selectedSubjectLessons, setselectedSubjectLessons] = useState("1"); // this tells which subject is active in order to fetch the corresponding lessons
@@ -116,23 +116,21 @@ function StudentDash() {
 
   return (
     <div>
-      <h1>Hello, {sessionStorage.getItem("username")}</h1>
-      <div>
-        <h1>Some Courses</h1>
+      <OnlineCourses />
+      <div className="text-center">
+        <Button
+          variant="outline-primary"
+          onClick={() => handleSectionChange("homeworks")}
+        >
+          Lessons & Homeworks
+        </Button>{" "}
+        <Button
+          variant="outline-success"
+          onClick={() => handleSectionChange("marks")}
+        >
+          Marks
+        </Button>{" "}
       </div>
-      <Cards />
-      <Button
-        variant="outline-primary"
-        onClick={() => handleSectionChange("homeworks")}
-      >
-        Lessons & Homeworks
-      </Button>{" "}
-      <Button
-        variant="outline-success"
-        onClick={() => handleSectionChange("marks")}
-      >
-        Marks
-      </Button>{" "}
       <br />
       <br />
       {activeSection === "homeworks" ? (
