@@ -6,7 +6,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useNavigate } from "react-router-dom";
-import Home from "./Components/Home";
+import Home from "./Components/Home/Home";
 import JobApplication from "./Components/JobApplication";
 import StudentLogin from "./Components/StudentLogin";
 import TeacherLogin from "./Components/TeacherLogin";

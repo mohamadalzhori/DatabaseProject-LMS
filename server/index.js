@@ -15,40 +15,39 @@ const db = require("./models");
 // app.use('/auth', UsersRouter);
 
 const studentsRouter = require("./routes/Students");
-app.use('/authStudents', studentsRouter);
+app.use("/authStudents", studentsRouter);
 
 const teachersRouter = require("./routes/Teachers");
-app.use('/authTeachers', teachersRouter);
+app.use("/authTeachers", teachersRouter);
 
 const managersRouter = require("./routes/Managers");
-app.use('/authManagers', managersRouter);
+app.use("/authManagers", managersRouter);
 
 // -------------------
 
 const gradesRouter = require("./routes/Grades");
-app.use('/grades', gradesRouter);
+app.use("/grades", gradesRouter);
 
 const subjectsRouter = require("./routes/Subjects");
-app.use('/subjects', subjectsRouter);
+app.use("/subjects", subjectsRouter);
 
 const lessonsRouter = require("./routes/Lessons");
-app.use('/lessons', lessonsRouter);
+app.use("/lessons", lessonsRouter);
 
 const documentsRouter = require("./routes/Documents");
-app.use('/documents', documentsRouter);
+app.use("/documents", documentsRouter);
 
 const homeworksRouter = require("./routes/HomeWorks");
-app.use('/homeworks', homeworksRouter);
+app.use("/homeworks", homeworksRouter);
 
 const marksRouter = require("./routes/Marks");
-app.use('/marks', marksRouter);
+app.use("/marks", marksRouter);
 
 const successStoriesRouter = require("./routes/SuccessStories");
-app.use('/successstories', successStoriesRouter);
+app.use("/successstories", successStoriesRouter);
 
 const attendanceRouter = require("./routes/Attendance");
-app.use('/attendance', attendanceRouter);
-
+app.use("/attendance", attendanceRouter);
 
 db.sequelize.sync().then(() => {
   app.listen(3001, () => {

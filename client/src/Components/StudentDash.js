@@ -120,7 +120,7 @@ function StudentDash() {
   // console.log(lessons);
 
   return (
-    <div>
+    <div className="StudentDash">
       <OnlineCourses setActiveSubject={handleSetActiveSubject} />
       <h1>{activeSubject}</h1>
       <div className="text-center">
