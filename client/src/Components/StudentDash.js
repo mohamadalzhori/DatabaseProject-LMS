@@ -15,7 +15,7 @@ function StudentDash() {
   const [HW, setHW] = useState([]);
   const [marks, setMarks] = useState([]);
   const [activeSection, setActiveSection] = useState("homeworks");
-  const [activeSubject, setActiveSubject] = useState("arabic");
+  const [activeSubject, setActiveSubject] = useState("1");
 
   // Function to handle section change
   const handleSectionChange = (section) => {
@@ -29,7 +29,7 @@ function StudentDash() {
   // when subject is changed, we fetch the lessons
   useEffect(() => {
     fetchLessons();
-  }, [selectedSubjectLessons]);
+  }, [activeSubject]);
 
   // when lessons changed, we fetch new documents
   useEffect(() => {
@@ -39,12 +39,12 @@ function StudentDash() {
   // When the subjects tabs in the Homework section is selected
   useEffect(() => {
     fetchHW();
-  }, [selectedSubjectHW]);
+  }, [activeSubject]);
 
   // When the subjects tabs in the Marks section is selected
   useEffect(() => {
     fetchMarks();
-  }, [selectedSubjectMarks]);
+  }, [activeSubject]);
 
   // these two methods fetch the lessons and documents based on grade, later on we filter the lessons based on the subject and the documents based on the lessons and the subjects
   const fetchLessons = async () => {
@@ -110,11 +110,11 @@ function StudentDash() {
 
   // create a new array of lessons that are only related to the active subject
   const filteredLessons = lessons.filter(
-    (lesson) => lesson.subject_id == selectedSubjectLessons
+    (lesson) => lesson.subject_id == activeSubject
   );
-  const filteredHW = HW.filter((hw) => hw.subject_id == selectedSubjectHW);
+  const filteredHW = HW.filter((hw) => hw.subject_id == activeSubject);
   const filteredMarks = marks.filter(
-    (mark) => mark.subject_id == selectedSubjectMarks
+    (mark) => mark.subject_id == activeSubject
   );
 
   // console.log(lessons);
@@ -122,352 +122,103 @@ function StudentDash() {
   return (
     <div className="StudentDash">
       <OnlineCourses setActiveSubject={handleSetActiveSubject} />
-      <h1>{activeSubject}</h1>
+      <br />
+      {activeSubject === "1" && <h1>Arabic</h1>}
+      {activeSubject === "2" && <h1>English</h1>}
+      {activeSubject === "3" && <h1>Math</h1>}
+      {activeSubject === "4" && <h1>Science</h1>}
+      {activeSubject === "5" && <h1>Islamic Culture</h1>}
+      {/* <h1>activeSubject: {activeSubject}</h1> */}
       <div className="text-center">
         <Button
           variant="outline-primary"
-          onClick={() => handleSectionChange("homeworks")}
+          onClick={() => handleSectionChange("lessons")}
         >
-          Lessons & Homeworks
-        </Button>{" "}
+          Lessons
+        </Button>
         <Button
           variant="outline-success"
+          onClick={() => handleSectionChange("homeworks")}
+        >
+          Homeworks
+        </Button>
+        <Button
+          variant="outline-danger"
           onClick={() => handleSectionChange("marks")}
         >
           Marks
-        </Button>{" "}
+        </Button>
       </div>
       <br />
       <br />
-      {activeSection === "homeworks" ? (
+
+      {activeSection === "lessons" && (
         <div>
+          <hr />
           <h1>Lessons</h1>
-
-          {/* through this line we can update our selectedSubjectLessons variable everytime a tab is changed */}
-          <Tabs
-            id="fill-tab-example"
-            className="mb-3"
-            fill
-            activeKey={selectedSubjectLessons}
-            onSelect={handleTabSelectLessons}
-          >
-            <Tab eventKey="1" title="Arabic">
-              <Accordion>
-                {/* Being here means that we already have a filteredLesson array that only has lesson related to the subject of this tab, we just map over it to print them all */}
-                {filteredLessons.map((lesson, index) => {
-                  // now in each lesson we are going to created a filtered array of documents that's related to this lesson then map over it to print them all
-                  const lessonDocuments = documents.filter(
-                    (document) => document.lesson_id === lesson.id
-                  );
-                  return (
-                    <Accordion.Item key={lesson.id} eventKey={index.toString()}>
-                      <Accordion.Header>{lesson.lesson_name}</Accordion.Header>
-                      <Accordion.Body>
-                        {lessonDocuments.map((document) => (
-                          <div key={document.id}>
-                            <p>Document Name: {document.document_name}</p>
-                            <p>Document URL: {document.document_link}</p>
-                          </div>
-                        ))}
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-
-              {/* The same goes for the rest of the subjects  */}
-            </Tab>
-            <Tab eventKey="2" title="English">
-              <Accordion>
-                {filteredLessons.map((lesson, index) => {
-                  const lessonDocuments = documents.filter(
-                    (document) => document.lesson_id === lesson.id
-                  );
-                  return (
-                    <Accordion.Item key={index} eventKey={index.toString()}>
-                      <Accordion.Header>{lesson.lesson_name}</Accordion.Header>
-                      <Accordion.Body>
-                        {lessonDocuments.map((document) => (
-                          <div key={document.id}>
-                            <p>Document Name: {document.document_name}</p>
-                            <p>Document URL: {document.document_link}</p>
-                          </div>
-                        ))}
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-            </Tab>
-            <Tab eventKey="3" title="Math">
-              <Accordion>
-                {filteredLessons.map((lesson, index) => {
-                  const lessonDocuments = documents.filter(
-                    (document) => document.lesson_id === lesson.id
-                  );
-                  return (
-                    <Accordion.Item key={index} eventKey={index.toString()}>
-                      <Accordion.Header>{lesson.lesson_name}</Accordion.Header>
-                      <Accordion.Body>
-                        {lessonDocuments.map((document) => (
-                          <div key={document.id}>
-                            <p>Document Name: {document.document_name}</p>
-                            <p>Document URL: {document.document_link}</p>
-                          </div>
-                        ))}
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-            </Tab>
-            <Tab eventKey="4" title="Sciences">
-              <Accordion>
-                {filteredLessons.map((lesson, index) => {
-                  const lessonDocuments = documents.filter(
-                    (document) => document.lesson_id === lesson.id
-                  );
-                  return (
-                    <Accordion.Item key={index} eventKey={index.toString()}>
-                      <Accordion.Header>{lesson.lesson_name}</Accordion.Header>
-                      <Accordion.Body>
-                        {lessonDocuments.map((document) => (
-                          <div key={document.id}>
-                            <p>Document Name: {document.document_name}</p>
-                            <p>Document URL: {document.document_link}</p>
-                          </div>
-                        ))}
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-            </Tab>
-            <Tab eventKey="5" title="Islamic Culture">
-              <Accordion>
-                {filteredLessons.map((lesson, index) => {
-                  const lessonDocuments = documents.filter(
-                    (document) => document.lesson_id === lesson.id
-                  );
-                  return (
-                    <Accordion.Item key={index} eventKey={index.toString()}>
-                      <Accordion.Header>{lesson.lesson_name}</Accordion.Header>
-                      <Accordion.Body>
-                        {lessonDocuments.map((document) => (
-                          <div key={document.id}>
-                            <p>Document Name: {document.document_name}</p>
-                            <p>Document URL: {document.document_link}</p>
-                          </div>
-                        ))}
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-            </Tab>
-          </Tabs>
-
-          <br />
-          <br />
-          <br />
+          <hr />
+          <div>
+            {filteredLessons.map((lesson, index) => {
+              // now in each lesson we are going to created a filtered array of documents that's related to this lesson then map over it to print them all
+              const lessonDocuments = documents.filter(
+                (document) => document.lesson_id === lesson.id
+              );
+              return (
+                <div key={lesson.id} eventKey={index.toString()}>
+                  <h1>{lesson.lesson_name}</h1>
+                  <div>
+                    {lessonDocuments.map((document) => (
+                      <div key={document.id}>
+                        <p>Document Name: {document.document_name}</p>
+                        <p>Document URL: {document.document_link}</p>
+                      </div>
+                    ))}
+                    <hr />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+      {activeSection === "homeworks" && (
+        <div>
           <hr />
           <h1>Homeworks</h1>
-
-          {/* through this line we can update our selectedSubjectHW variable everytime a tab is changed */}
-          <Tabs
-            id="fill-tab-example"
-            className="mb-3"
-            fill
-            activeKey={selectedSubjectHW}
-            onSelect={handleTabSelectHW}
-          >
-            <Tab eventKey="1" title="Arabic">
-              <Accordion>
-                {/* Being here means that we already have a filteredHW array that's related to the subject of this tab, we just map over it to print them all */}
-                {filteredHW.map((hw, index) => {
-                  return (
-                    <Accordion.Item key={hw.id} eventKey={index.toString()}>
-                      <Accordion.Header>{hw.homework_name}</Accordion.Header>
-                      <Accordion.Body>
-                        <p>{hw.homework_body}</p>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-
-              {/* The same goes for the rest of the subjects  */}
-            </Tab>
-            <Tab eventKey="2" title="English">
-              <Accordion>
-                {/* Being here means that we already have a filteredHW array that's related to the subject of this tab, we just map over it to print them all */}
-                {filteredHW.map((hw, index) => {
-                  return (
-                    <Accordion.Item key={hw.id} eventKey={index.toString()}>
-                      <Accordion.Header>{hw.homework_name}</Accordion.Header>
-                      <Accordion.Body>
-                        <p>{hw.homework_body}</p>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-
-              {/* The same goes for the rest of the subjects  */}
-            </Tab>
-            <Tab eventKey="3" title="Math">
-              <Accordion>
-                {/* Being here means that we already have a filteredHW array that's related to the subject of this tab, we just map over it to print them all */}
-                {filteredHW.map((hw, index) => {
-                  return (
-                    <Accordion.Item key={hw.id} eventKey={index.toString()}>
-                      <Accordion.Header>{hw.homework_name}</Accordion.Header>
-                      <Accordion.Body>
-                        <p>{hw.homework_body}</p>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-
-              {/* The same goes for the rest of the subjects  */}
-            </Tab>
-            <Tab eventKey="4" title="Sciences">
-              <Accordion>
-                {/* Being here means that we already have a filteredHW array that's related to the subject of this tab, we just map over it to print them all */}
-                {filteredHW.map((hw, index) => {
-                  return (
-                    <Accordion.Item key={hw.id} eventKey={index.toString()}>
-                      <Accordion.Header>{hw.homework_name}</Accordion.Header>
-                      <Accordion.Body>
-                        <p>{hw.homework_body}</p>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-
-              {/* The same goes for the rest of the subjects  */}
-            </Tab>
-            <Tab eventKey="5" title="Islamic Culture">
-              <Accordion>
-                {/* Being here means that we already have a filteredHW array that's related to the subject of this tab, we just map over it to print them all */}
-                {filteredHW.map((hw, index) => {
-                  return (
-                    <Accordion.Item key={hw.id} eventKey={index.toString()}>
-                      <Accordion.Header>{hw.homework_name}</Accordion.Header>
-                      <Accordion.Body>
-                        <p>{hw.homework_body}</p>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-
-              {/* The same goes for the rest of the subjects  */}
-            </Tab>
-          </Tabs>
+          <hr />
+          <div>
+            {filteredHW.map((hw, index) => {
+              return (
+                <div key={hw.id} eventKey={index.toString()}>
+                  <h1>{hw.homework_name}</h1>
+                  <div>
+                    <p>{hw.homework_body}</p>
+                  </div>
+                  <hr />
+                </div>
+              );
+            })}
+          </div>
         </div>
-      ) : (
+      )}
+      {activeSection === "marks" && (
         <div>
           {/* Marks content */}
           <h1>Marks</h1>
-
-          {/* through this line we can update our selectedSubjectHW variable everytime a tab is changed */}
-          <Tabs
-            id="fill-tab-example"
-            className="mb-3"
-            fill
-            activeKey={selectedSubjectMarks}
-            onSelect={handleTabSelectMarks}
-          >
-            <Tab eventKey="1" title="Arabic">
-              <Accordion>
-                {/* Being here means that we already have a filteredHW array that's related to the subject of this tab, we just map over it to print them all */}
-                {filteredMarks.map((mark, index) => {
-                  return (
-                    <Accordion.Item key={mark.id} eventKey={index.toString()}>
-                      <Accordion.Header>{mark.mark_name}</Accordion.Header>
-                      <Accordion.Body>
-                        <p>{mark.mark_value}</p>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-
-              {/* The same goes for the rest of the subjects  */}
-            </Tab>
-            <Tab eventKey="2" title="English">
-              <Accordion>
-                {/* Being here means that we already have a filteredHW array that's related to the subject of this tab, we just map over it to print them all */}
-                {filteredMarks.map((mark, index) => {
-                  return (
-                    <Accordion.Item key={mark.id} eventKey={index.toString()}>
-                      <Accordion.Header>{mark.mark_name}</Accordion.Header>
-                      <Accordion.Body>
-                        <p>{mark.mark_value}</p>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-
-              {/* The same goes for the rest of the subjects  */}
-            </Tab>
-            <Tab eventKey="3" title="Math">
-              <Accordion>
-                {/* Being here means that we already have a filteredHW array that's related to the subject of this tab, we just map over it to print them all */}
-                {filteredMarks.map((mark, index) => {
-                  return (
-                    <Accordion.Item key={mark.id} eventKey={index.toString()}>
-                      <Accordion.Header>{mark.mark_name}</Accordion.Header>
-                      <Accordion.Body>
-                        <p>{mark.mark_value}</p>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-
-              {/* The same goes for the rest of the subjects  */}
-            </Tab>
-            <Tab eventKey="4" title="Sciences">
-              <Accordion>
-                {/* Being here means that we already have a filteredHW array that's related to the subject of this tab, we just map over it to print them all */}
-                {filteredMarks.map((mark, index) => {
-                  return (
-                    <Accordion.Item key={mark.id} eventKey={index.toString()}>
-                      <Accordion.Header>{mark.mark_name}</Accordion.Header>
-                      <Accordion.Body>
-                        <p>{mark.mark_value}</p>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-
-              {/* The same goes for the rest of the subjects  */}
-            </Tab>
-            <Tab eventKey="5" title="Islamic Culture">
-              <Accordion>
-                {/* Being here means that we already have a filteredHW array that's related to the subject of this tab, we just map over it to print them all */}
-                {filteredMarks.map((mark, index) => {
-                  return (
-                    <Accordion.Item key={mark.id} eventKey={index.toString()}>
-                      <Accordion.Header>{mark.mark_name}</Accordion.Header>
-                      <Accordion.Body>
-                        <p>{mark.mark_value}</p>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-
-              {/* The same goes for the rest of the subjects  */}
-            </Tab>
-          </Tabs>
-          {/* Add your marks components here */}
+          <hr />
+          <div>
+            {filteredMarks.map((mark, index) => {
+              return (
+                <div key={mark.id} eventKey={index.toString()}>
+                  <h1>{mark.mark_name}</h1>
+                  <div>
+                    <p>{mark.mark_value}</p>
+                  </div>
+                  <hr />
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
     </div>
