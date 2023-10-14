@@ -2,6 +2,7 @@
 .online {
   text-align: center;
   display: flex;
+  margin-top: 2rem;
 }
 .online .box {
   box-shadow: 0 5px 25px -2px rgb(0 0 0 / 6%);
@@ -123,8 +124,8 @@ button:hover {
 
 /*------------global-----------*/
 #heading {
-  text-align: center;
-  padding: 40px 0;
+  /* text-align: center; */
+  /* padding: 40px 0; */
 }
 #heading h3 {
   font-weight: 600;
@@ -134,7 +135,7 @@ button:hover {
 }
 #heading h1 {
   font-size: 45px;
-  margin: 20px 0;
+  /* margin: 20px 0; */
   text-transform: capitalize;
 }
 p {
@@ -194,7 +195,7 @@ p {
 }
 .grid3 {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 10px;
 }
 .padding {
