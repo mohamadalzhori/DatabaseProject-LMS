@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { useNavigate } from 'react-router-dom';
-import './style.css';
-import axios from 'axios';
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
+import "./style.css";
+import axios from "axios";
 
-// Notice here we have the onLogin prop passed from the 
+// Notice here we have the onLogin prop passed from the
 function StudentLogin({ onLogin }) {
   // Creating varialbes to be used in the form
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
@@ -29,35 +29,46 @@ function StudentLogin({ onLogin }) {
       password,
     };
 
-    axios.post('http://localhost:3001/authStudents/login', data)
+    axios
+      .post("http://localhost:3001/authStudents/login", data)
       .then((response) => {
         if (response.data.error) {
           alert(response.data.error);
         } else {
           // if the request is successful we push accessToken, name and grade into the sessionStorage in order to use them in the Dashboard
           const { accessToken, username, grade } = response.data;
-          sessionStorage.setItem('accessToken', accessToken);
-          sessionStorage.setItem('username', username);
-          sessionStorage.setItem('grade', grade);
+          sessionStorage.setItem("accessToken", accessToken);
+          sessionStorage.setItem("username", username);
+          sessionStorage.setItem("grade", grade);
           // sessionStorage.setItem('type', 'student');
           onLogin(); // Invoke the onLogin callback DAAAAAAAAAAAAAAAAAAAAAAAAAAMN
-          navigate('/studentDash');
+          navigate("/studentDash");
         }
       });
   };
 
   return (
-    <div className='login template d-flex justify-content-center align-items-center vh-100 bg-primary'>
-      <div className='form-container p-5 rounded bg-white'>
+    <div className="login template d-flex justify-content-center align-items-center vh-100 bg-primary">
+      <div className="form-container p-5 rounded bg-white">
         <Form onSubmit={handleSubmit}>
           <h3>Students Log In</h3>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Username</Form.Label>
-            <Form.Control type="text" placeholder="Enter username" value={username} onChange={handleUsernameChange} />
+            <Form.Control
+              type="text"
+              placeholder="Enter username"
+              value={username}
+              onChange={handleUsernameChange}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
           </Form.Group>
 
           <Button variant="primary" type="submit">
