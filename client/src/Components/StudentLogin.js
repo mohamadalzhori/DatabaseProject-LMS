@@ -30,16 +30,16 @@ function StudentLogin({ onLogin }) {
     };
 
     axios
-      .post("http://localhost:3001/authStudents/login", data)
+      .post("http://localhost:8080/authStudent/login", data)
       .then((response) => {
         if (response.data.error) {
           alert(response.data.error);
         } else {
           // if the request is successful we push accessToken, name and grade into the sessionStorage in order to use them in the Dashboard
-          const { accessToken, username, grade } = response.data;
+          const { accessToken, username, grade_id } = response.data;
           sessionStorage.setItem("accessToken", accessToken);
           sessionStorage.setItem("username", username);
-          sessionStorage.setItem("grade", grade);
+          sessionStorage.setItem("grade_id", grade_id);
           // sessionStorage.setItem('type', 'student');
           onLogin(); // Invoke the onLogin callback DAAAAAAAAAAAAAAAAAAAAAAAAAAMN
           navigate("/studentDash");
