@@ -50,7 +50,7 @@ function StudentDash() {
   const fetchLessons = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/lessons/${sessionStorage.getItem("grade")}`
+        `http://localhost:8080/lesson/${sessionStorage.getItem("grade_id")}`
       );
       const data = await response.json();
       setLessons(data);
