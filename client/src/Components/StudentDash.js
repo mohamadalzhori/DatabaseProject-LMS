@@ -74,7 +74,7 @@ function StudentDash() {
   const fetchHW = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/homeworks/${sessionStorage.getItem("grade")}`
+        `http://localhost:8080/homeworks/${sessionStorage.getItem("grade")}`
       );
       const data = await response.json();
       setHW(data);
@@ -86,7 +86,7 @@ function StudentDash() {
   const fetchMarks = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/marks/${sessionStorage.getItem("grade")}`
+        `http://localhost:8080/marks/${sessionStorage.getItem("grade")}`
       );
       const data = await response.json();
       setMarks(data);

@@ -46,12 +46,6 @@ const OnlineCourses = ({ setActiveSubject }) => {
       course: "30 Courses",
       subject_id: "5",
     },
-    // {
-    //   cover: "./images/courses/online/o5.png",
-    //   hoverCover: "./images/courses/online/o5.1.png",
-    //   courseName: "shi shaghle krmel l style",
-    //   course: "30 Courses",
-    // },
   ];
   return (
     <>
