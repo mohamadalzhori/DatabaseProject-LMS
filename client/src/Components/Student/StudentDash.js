@@ -49,9 +49,14 @@ function StudentDash() {
   // these two methods fetch the lessons and documents based on grade, later on we filter the lessons based on the subject and the documents based on the lessons and the subjects
   const fetchLessons = async () => {
     try {
+      // note that here I added the activeSubject to the url so it matches the requests,
+      // but it did not work yet, I will sleep on it until I finish the frontend
       const response = await fetch(
-        `http://localhost:8080/lesson/${sessionStorage.getItem("grade_id")}`
+        `http://localhost:8080/lesson/${activeSubject}/${sessionStorage.getItem(
+          "grade_id"
+        )}`
       );
+
       const data = await response.json();
       setLessons(data);
     } catch (error) {

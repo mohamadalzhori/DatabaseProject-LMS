@@ -2,7 +2,7 @@
 .online {
   text-align: center;
   display: flex;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
 }
 .online .box {
   box-shadow: 0 5px 25px -2px rgb(0 0 0 / 6%);
@@ -25,7 +25,7 @@
   font-weight: 500;
   font-size: 20px;
   margin: 20px 0;
-  line-height: 30px;
+  /* line-height: 30px; */
 }
 .online span {
   background-color: #f8f8f8;
@@ -97,7 +97,7 @@ li {
   list-style-type: none;
 }
 .row {
-  width: 50%;
+  width: 90%;
 }
 button {
   padding: 17px 30px;
@@ -124,7 +124,7 @@ button:hover {
 
 /*------------global-----------*/
 #heading {
-  /* text-align: center; */
+  text-align: center;
   /* padding: 40px 0; */
 }
 #heading h3 {
@@ -132,6 +132,7 @@ button:hover {
   letter-spacing: 1px;
   color: #1eb2a6;
   text-transform: uppercase;
+  margin-top: 20px;
 }
 #heading h1 {
   font-size: 45px;
@@ -181,6 +182,7 @@ p {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 30px;
+  margin-top: 20px;
 }
 .outline-btn {
   margin: 0;

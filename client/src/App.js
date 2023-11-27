@@ -8,13 +8,13 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { useNavigate } from "react-router-dom";
 import Home from "./Components/Home/Home";
 import JobApplication from "./Components/JobApplication/JobApplication";
-import StudentLogin from "./Components/StudentLogin";
-import TeacherLogin from "./Components/TeacherLogin";
-import ManagerLogin from "./Components/ManagerLogin";
-import StudentDash from "./Components/StudentDash";
-import TeacherDash from "./Components/TeacherDash";
-import ManagerDash from "./Components/ManagerDash";
-import OnlineCourses from "./Components/OnlineCourses";
+import StudentLogin from "./Components/Student/StudentLogin";
+import TeacherLogin from "./Components/Teacher/TeacherLogin";
+import ManagerLogin from "./Components/Manager/ManagerLogin";
+import StudentDash from "./Components/Student/StudentDash";
+import TeacherDash from "./Components/Teacher/TeacherDash";
+import ManagerDash from "./Components/Manager/ManagerDash";
+import OnlineCourses from "./Components/Student/OnlineCourses";
 
 function App() {
   // the !! converts the value to boolean if accessToken= value then true, if null then false

@@ -52,7 +52,9 @@ function SuccessStories() {
   return (
     <div>
       <Form onSubmit={handleSubmit}>
-        <Form.Label>Student</Form.Label>
+        <h3>
+          <Form.Label>Student</Form.Label>
+        </h3>
         <Form.Select
           aria-label="Default select example"
           value={selectedStudent}
@@ -67,7 +69,9 @@ function SuccessStories() {
         </Form.Select>
         <br />
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Success Story</Form.Label>
+          <h3>
+            <Form.Label>Success Story</Form.Label>
+          </h3>
           <Form.Control
             maxLength={255}
             as="textarea"
@@ -83,7 +87,7 @@ function SuccessStories() {
         </Form.Text>
         <br />
         <br />
-        <Button variant="primary" type="submit">
+        <Button variant="success" type="submit">
           Submit
         </Button>
       </Form>

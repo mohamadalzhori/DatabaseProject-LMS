@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
-import "./style.css";
+import "../style.css";
 import axios from "axios";
 
 // Notice here we have the onLogin prop passed from the
@@ -44,6 +44,9 @@ function StudentLogin({ onLogin }) {
           onLogin(); // Invoke the onLogin callback DAAAAAAAAAAAAAAAAAAAAAAAAAAMN
           navigate("/studentDash");
         }
+      })
+      .catch((error) => {
+        alert("Not on my watch mannn");
       });
   };
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, ListGroup, Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
+import Button from "react-bootstrap/Button";
 
 function Attendence() {
   // const [students, setStudents] = useState([]);
@@ -69,7 +70,7 @@ function Attendence() {
 
   return (
     <div>
-      <h1>Attendance</h1>
+      <h3>Attendance</h3>
 
       <form onSubmit={handleSubmit}>
         <ListGroup>
@@ -84,7 +85,9 @@ function Attendence() {
             </ListGroup.Item>
           ))}
         </ListGroup>
-        <button type="submit">Submit</button>
+        <Button variant="success" type="submit">
+          Submit
+        </Button>
       </form>
     </div>
   );

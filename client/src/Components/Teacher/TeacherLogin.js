@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import "./style.css";
+import { useNavigate } from "react-router-dom";
+import "../style.css";
 import axios from "axios";
 
-function ManagersLogin() {
+// Notice here we have the onLogin prop passed from the
+function TeacherLogin({ onLogin }) {
+  // Creating varialbes to be used in the form
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -17,20 +21,27 @@ function ManagersLogin() {
   };
 
   const handleSubmit = (event) => {
+    // In browsers the defaul submit reloads the page but we don't want this, we want to navigate to a certain page so we disable the default submit behaviour
     event.preventDefault();
 
     const data = {
-      username: username,
-      password: password,
+      username,
+      password,
     };
 
     axios
-      .post("http://localhost:8080/authManagers/login", data)
+      .post("http://localhost:8080/authTeachers/login", data)
       .then((response) => {
         if (response.data.error) {
           alert(response.data.error);
         } else {
-          sessionStorage.setItem("accessToken", response.data);
+          // if the request is successful we push accessToken, name and grade into the sessionStorage in order to use them in the Dashboard
+          const { accessToken, name } = response.data;
+          sessionStorage.setItem("accessToken", accessToken);
+          sessionStorage.setItem("username", username);
+          // sessionStorage.setItem('type', 'student');
+          onLogin(); // Invoke the onLogin callback DAAAAAAAAAAAAAAAAAAAAAAAAAAMN
+          navigate("/TeacherDash");
         }
       });
   };
@@ -39,7 +50,7 @@ function ManagersLogin() {
     <div className="login template d-flex justify-content-center align-items-center vh-100 bg-primary">
       <div className="form-container p-5 rounded bg-white">
         <Form onSubmit={handleSubmit}>
-          <h3>Managers Log In</h3>
+          <h3>Teachers Log In</h3>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Username</Form.Label>
             <Form.Control
@@ -49,7 +60,6 @@ function ManagersLogin() {
               onChange={handleUsernameChange}
             />
           </Form.Group>
-
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -69,4 +79,4 @@ function ManagersLogin() {
   );
 }
 
-export default ManagersLogin;
+export default TeacherLogin;
