@@ -15,6 +15,7 @@ import StudentDash from "./Components/Student/StudentDash";
 import TeacherDash from "./Components/Teacher/TeacherDash";
 import ManagerDash from "./Components/Manager/ManagerDash";
 import OnlineCourses from "./Components/Student/OnlineCourses";
+import AllStudents from "./Components/Manager/AllStudents";
 
 function App() {
   // the !! converts the value to boolean if accessToken= value then true, if null then false
@@ -123,6 +124,7 @@ function App() {
           <Route path="/teacherDash" element={<TeacherDash />} />
           <Route path="/managerDash" element={<ManagerDash />} />
           <Route path="/OnlineCourses" element={<OnlineCourses />} />
+          <Route path="/ManagerDash/Students" element={<AllStudents />} />
         </Routes>
       </div>
     </div>

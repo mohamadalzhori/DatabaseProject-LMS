@@ -67,10 +67,13 @@ function StudentDash() {
   const fetchDocuments = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/documents/${sessionStorage.getItem("grade")}`
+        `http://localhost:3001/document/${activeSubject}/${sessionStorage.getItem(
+          "grade_id"
+        )}`
       );
       const data = await response.json();
       setDocuments(data);
+      console.log(data);
     } catch (error) {
       console.log("Error fetching documents:", error);
     }
@@ -79,24 +82,28 @@ function StudentDash() {
   const fetchHW = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/homeworks/${sessionStorage.getItem("grade")}`
+        `http://localhost:8080/homework/${activeSubject}/${sessionStorage.getItem(
+          "grade_id"
+        )}`
       );
       const data = await response.json();
       setHW(data);
     } catch (error) {
-      console.log("Error fetching documents:", error);
+      console.log("Error fetching Hw:", error);
     }
   };
 
   const fetchMarks = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/marks/${sessionStorage.getItem("grade")}`
+        `http://localhost:8080/mark/${activeSubject}/${sessionStorage.getItem(
+          "grade_id"
+        )}`
       );
       const data = await response.json();
       setMarks(data);
     } catch (error) {
-      console.log("Error fetching documents:", error);
+      console.log("Error fetching marks:", error);
     }
   };
 
@@ -117,7 +124,7 @@ function StudentDash() {
   const filteredLessons = lessons.filter(
     (lesson) => lesson.subject_id == activeSubject
   );
-  const filteredHW = HW.filter((hw) => hw.subject_id == activeSubject);
+
   const filteredMarks = marks.filter(
     (mark) => mark.subject_id == activeSubject
   );
@@ -163,14 +170,14 @@ function StudentDash() {
           <h1>Lessons</h1>
           <hr />
           <div>
-            {filteredLessons.map((lesson, index) => {
+            {lessons.map((lesson, index) => {
               // now in each lesson we are going to created a filtered array of documents that's related to this lesson then map over it to print them all
               const lessonDocuments = documents.filter(
                 (document) => document.lesson_id === lesson.id
               );
               return (
                 <div key={lesson.id} eventKey={index.toString()}>
-                  <h1>{lesson.lesson_name}</h1>
+                  <h1>{lesson.name}</h1>
                   <div>
                     {lessonDocuments.map((document) => (
                       <div key={document.id}>
@@ -192,17 +199,20 @@ function StudentDash() {
           <h1>Homeworks</h1>
           <hr />
           <div>
-            {filteredHW.map((hw, index) => {
-              return (
-                <div key={hw.id} eventKey={index.toString()}>
-                  <h1>{hw.homework_name}</h1>
-                  <div>
-                    <p>{hw.homework_body}</p>
-                  </div>
-                  <hr />
+            {HW.map((homework) => (
+              <div key={homework.id}>
+                <h1>{homework.title}</h1>
+                <div>
+                  <p>Description: {homework.description}</p>
+                  <p>
+                    Due Date:
+                    {new Date(homework.due_date).toLocaleDateString()} at{" "}
+                    {new Date(homework.due_date).toLocaleTimeString()}
+                  </p>
                 </div>
-              );
-            })}
+                <hr />
+              </div>
+            ))}
           </div>
         </div>
       )}
