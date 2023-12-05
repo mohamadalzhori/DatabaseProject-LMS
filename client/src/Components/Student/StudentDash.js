@@ -67,7 +67,7 @@ function StudentDash() {
   const fetchDocuments = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/document/${activeSubject}/${sessionStorage.getItem(
+        `http://localhost:8080/document/${activeSubject}/${sessionStorage.getItem(
           "grade_id"
         )}`
       );
