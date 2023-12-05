@@ -74,7 +74,6 @@ function StudentDash() {
           ...prevDocuments,
           [lessonId]: data,
         }));
-        console.log(data);
       } catch (error) {
         console.log(`Error fetching documents for lesson ${lessonId}:`, error);
       }
@@ -103,12 +102,11 @@ function StudentDash() {
   const fetchMarks = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/mark/${activeSubject}/${sessionStorage.getItem(
-          "grade_id"
-        )}`
+        `http://localhost:8080/mark/1/${sessionStorage.getItem("grade_id")}`
       );
       const data = await response.json();
       setMarks(data);
+      console.log(data);
     } catch (error) {
       console.log("Error fetching marks:", error);
     }
@@ -234,12 +232,12 @@ function StudentDash() {
           <h1>Marks</h1>
           <hr />
           <div>
-            {filteredMarks.map((mark, index) => {
+            {marks.map((mark, index) => {
               return (
                 <div key={mark.id} eventKey={index.toString()}>
-                  <h1>{mark.mark_name}</h1>
+                  <h1>{mark.name}</h1>
                   <div>
-                    <p>{mark.mark_value}</p>
+                    <p>{mark.value}</p>
                   </div>
                   <hr />
                 </div>
