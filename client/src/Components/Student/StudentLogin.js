@@ -36,10 +36,11 @@ function StudentLogin({ onLogin }) {
           alert(response.data.error);
         } else {
           // if the request is successful we push accessToken, name and grade into the sessionStorage in order to use them in the Dashboard
-          const { accessToken, username, grade_id } = response.data;
+          const { accessToken, username, grade_id, student_id } = response.data;
           sessionStorage.setItem("accessToken", accessToken);
           sessionStorage.setItem("username", username);
           sessionStorage.setItem("grade_id", grade_id);
+          sessionStorage.setItem("student_id", student_id);
           // sessionStorage.setItem('type', 'student');
           onLogin(); // Invoke the onLogin callback DAAAAAAAAAAAAAAAAAAAAAAAAAAMN
           navigate("/studentDash");
