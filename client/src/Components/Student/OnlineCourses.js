@@ -12,38 +12,38 @@ const OnlineCourses = ({ setActiveSubject }) => {
 
   const online = [
     {
-      cover: "./images/courses/online/o1.png",
-      hoverCover: "./images/courses/online/o1.1.png",
+      cover: "./images/courses/online/arabic.png",
+      hoverCover: "./images/courses/online/Warabic.png",
       courseName: "Arabic",
-      course: "25 Courses",
+      NbofHW: "NbofHW",
       subject_id: "1",
     },
     {
       cover: "./images/courses/online/o2.png",
       hoverCover: "./images/courses/online/o2.1.png",
       courseName: "English",
-      course: "25 Courses",
+      NbofHW: "NbofHW",
       subject_id: "2",
     },
     {
       cover: "./images/courses/online/o3.png",
       hoverCover: "./images/courses/online/o3.1.png",
       courseName: "Math",
-      course: "10 Courses",
+      NbofHW: "NbofHW",
       subject_id: "3",
     },
     {
       cover: "./images/courses/online/o4.png",
       hoverCover: "./images/courses/online/o4.1.png",
       courseName: "Sciences",
-      course: "15 Courses",
+      NbofHW: "NbofHW",
       subject_id: "4",
     },
     {
       cover: "./images/courses/online/o5.png",
       hoverCover: "./images/courses/online/o5.1.png",
       courseName: "Islamic Culture",
-      course: "30 Courses",
+      NbofHW: "NbofHW",
       subject_id: "5",
     },
   ];
@@ -63,7 +63,7 @@ const OnlineCourses = ({ setActiveSubject }) => {
                   <img src={val.hoverCover} alt="" className="show" />
                 </div>
                 <h1>{val.courseName}</h1>
-                <span>{val.course}</span>
+                <span>{val.NbofHW}</span>
               </div>
             ))}
           </div>
