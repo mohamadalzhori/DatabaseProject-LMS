@@ -102,7 +102,9 @@ function StudentDash() {
   const fetchMarks = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/mark/1/${sessionStorage.getItem("grade_id")}`
+        `http://localhost:8080/mark/${sessionStorage.getItem(
+          "student_id"
+        )}/${activeSubject}`
       );
       const data = await response.json();
       setMarks(data);
