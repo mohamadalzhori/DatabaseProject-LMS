@@ -16,6 +16,7 @@ function StudentDash() {
   const [marks, setMarks] = useState([]);
   const [activeSection, setActiveSection] = useState("homeworks");
   const [activeSubject, setActiveSubject] = useState("1");
+  const [lessonDocuments, setLessonDocuments] = useState({});
 
   // Function to handle section change
   const handleSectionChange = (section) => {
@@ -32,9 +33,6 @@ function StudentDash() {
   }, [activeSubject]);
 
   // when lessons changed, we fetch new documents
-  useEffect(() => {
-    fetchDocuments();
-  }, [lessons]);
 
   // When the subjects tabs in the Homework section is selected
   useEffect(() => {
@@ -64,18 +62,29 @@ function StudentDash() {
     }
   };
 
-  const fetchDocuments = async (lessonId) => {
-    try {
-      const response = await fetch(
-        `http://localhost:8080/document/${lessonId}`
-      );
-      const data = await response.json();
-      setDocuments(data);
-      console.log(data);
-    } catch (error) {
-      console.log("Error fetching documents:", error);
-    }
-  };
+  useEffect(() => {
+    const fetchDocumentsForLesson = async (lessonId) => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/document/${lessonId}`
+        );
+        const data = await response.json();
+        // Update the state using the lessonId as the key
+        setLessonDocuments((prevDocuments) => ({
+          ...prevDocuments,
+          [lessonId]: data,
+        }));
+        console.log(data);
+      } catch (error) {
+        console.log(`Error fetching documents for lesson ${lessonId}:`, error);
+      }
+    };
+
+    // Fetch documents for each lesson individually
+    lessons.forEach((lesson) => {
+      fetchDocumentsForLesson(lesson.id);
+    });
+  }, [lessons]);
 
   const fetchHW = async () => {
     try {
@@ -169,6 +178,8 @@ function StudentDash() {
           <hr />
           <div>
             {lessons.map((lesson, index) => {
+              const documentsForLesson = lessonDocuments[lesson.id] || [];
+
               // now in each lesson we are going to created a filtered array of documents that's related to this lesson then map over it to print them all
               //const lessonDocuments = documents.filter(
               //  (document) => document.lesson_id === lesson.id
@@ -178,9 +189,8 @@ function StudentDash() {
                   <h1>{lesson.name}</h1>
                   <h1>{lesson.id}</h1>
                   {/* invoke method 1 here */}
-                  {/* {fetchDocuments(lesson.id)} */}
                   <div>
-                    {documents.map((document) => (
+                    {documentsForLesson.map((document) => (
                       <div key={document.id}>
                         <p>Document Title: {document.title}</p>
                         <p>Document URL: {document.URL}</p>
