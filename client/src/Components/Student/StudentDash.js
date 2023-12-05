@@ -64,12 +64,10 @@ function StudentDash() {
     }
   };
 
-  const fetchDocuments = async () => {
+  const fetchDocuments = async (lessonId) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/document/${activeSubject}/${sessionStorage.getItem(
-          "grade_id"
-        )}`
+        `http://localhost:8080/document/${lessonId}`
       );
       const data = await response.json();
       setDocuments(data);
@@ -172,17 +170,21 @@ function StudentDash() {
           <div>
             {lessons.map((lesson, index) => {
               // now in each lesson we are going to created a filtered array of documents that's related to this lesson then map over it to print them all
-              const lessonDocuments = documents.filter(
-                (document) => document.lesson_id === lesson.id
-              );
+              //const lessonDocuments = documents.filter(
+              //  (document) => document.lesson_id === lesson.id
+              //);
               return (
                 <div key={lesson.id} eventKey={index.toString()}>
                   <h1>{lesson.name}</h1>
+                  <h1>{lesson.id}</h1>
+                  {/* invoke method 1 here */}
+                  {/* {fetchDocuments(lesson.id)} */}
                   <div>
-                    {lessonDocuments.map((document) => (
+                    {documents.map((document) => (
                       <div key={document.id}>
-                        <p>Document Name: {document.document_name}</p>
-                        <p>Document URL: {document.document_link}</p>
+                        <p>Document Title: {document.title}</p>
+                        <p>Document URL: {document.URL}</p>
+                        <p>Document Description: {document.description}</p>
                       </div>
                     ))}
                     <hr />
