@@ -30,7 +30,7 @@ function StudentLogin({ onLogin }) {
     };
 
     axios
-      .post("http://localhost:8080/authStudent/login", data)
+      .post("http://localhost:8080/Student/login", data)
       .then((response) => {
         if (response.data.error) {
           alert(response.data.error);

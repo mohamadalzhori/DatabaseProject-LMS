@@ -193,7 +193,12 @@ function StudentDash() {
                     {documentsForLesson.map((document) => (
                       <div key={document.id}>
                         <p>Document Title: {document.title}</p>
-                        <p>Document URL: {document.url}</p>
+                        <p>
+                          Document URL:{" "}
+                          <a href={document.url} target="_blank">
+                            {document.url}
+                          </a>
+                        </p>
                         <p>Document Description: {document.description}</p>
                       </div>
                     ))}

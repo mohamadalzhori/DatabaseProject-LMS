@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
+
 import "../style.css";
 import axios from "axios";
 
-function ManagersLogin() {
+function ManagersLogin({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -25,13 +28,19 @@ function ManagersLogin() {
     };
 
     axios
-      .post("http://localhost:8080/authManagers/login", data)
+      .post("http://localhost:8080/Manager/login", data)
       .then((response) => {
         if (response.data.error) {
           alert(response.data.error);
         } else {
           sessionStorage.setItem("accessToken", response.data);
+          sessionStorage.setItem("username", username);
+          onLogin(); // Invoke the onLogin callback DAAAAAAAAAAAAAAAAAAAAAAAAAAMN
+          navigate("/ManagerDash");
         }
+      })
+      .catch((error) => {
+        alert("Not on my watch mannn");
       });
   };
 
@@ -39,7 +48,7 @@ function ManagersLogin() {
     <div className="login template d-flex justify-content-center align-items-center vh-100 bg-primary">
       <div className="form-container p-5 rounded bg-white">
         <Form onSubmit={handleSubmit}>
-          <h3>Managers Log In</h3>
+          <h3>Manager Log In</h3>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Username</Form.Label>
             <Form.Control

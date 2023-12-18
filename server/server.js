@@ -32,7 +32,10 @@ const models = [
 models.forEach((model) => model.initializeTable(db));
 
 // Routers
-app.use("/authStudent", require("./routes/Student"));
+app.use("/student", require("./routes/Student"));
+app.use("/teacher", require("./routes/Teacher"));
+app.use("/teacherAssignment", require("./routes/TeacherAssignment"));
+app.use("/manager", require("./routes/Manager"));
 app.use("/lesson", require("./routes/Lesson"));
 app.use("/homework", require("./routes/Homework"));
 app.use("/mark", require("./routes/Mark"));

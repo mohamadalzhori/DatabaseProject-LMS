@@ -25,63 +25,44 @@ const JWT_SECRET = "wowkey";
 // router.get("/", authenticateToken, async (req, res) => {
 
 router.get("/get/", async (req, res) => {
-  const getAllStudentSQL = "SELECT * FROM student";
+  const getAllTeacherSQL = "SELECT * FROM TEACHER";
 
-  db.query(getAllStudentSQL, (err, results) => {
+  db.query(getAllTeacherSQL, (err, results) => {
     if (err) {
-      console.error("Error fetching students:", err);
+      console.error("Error fetching teachers:", err);
       return res
         .status(500)
-        .json({ error: "An error occurred while fetching students." });
+        .json({ error: "An error occurred while fetching teachers." });
     }
 
     res.json(results);
   });
 });
 
-// Get a specific student by ID
 router.get("/get/:username", async (req, res) => {
   const username = req.params.username;
 
-  const getStudentByUsernameSQL = "SELECT * FROM STUDENT WHERE username = ?";
+  const getTeacherByUsernameSQL = "SELECT * FROM TEACHER WHERE username = ?";
 
-  db.query(getStudentByUsernameSQL, [username], (err, results) => {
+  db.query(getTeacherByUsernameSQL, [username], (err, results) => {
     if (err) {
-      console.error("Error fetching student:", err);
+      console.error("Error fetching Teacher:", err);
       return res
         .status(500)
-        .json({ error: "An error occurred while fetching student." });
+        .json({ error: "An error occurred while fetching Teacher." });
     }
 
     if (results.length > 0) {
       res.json(results[0]); // Assuming username is unique, sending the first result
     } else {
-      res.status(404).json({ error: "Student not found." });
+      res.status(404).json({ error: "Teacher not found." });
     }
   });
 });
 
-// Get all students in a specific grade
-router.get("/get/grade/:gradeId", async (req, res) => {
-  const gradeId = req.params.gradeId;
-
-  const getStudentsByGradeSQL = "SELECT * FROM student WHERE grade_id = ?";
-
-  db.query(getStudentsByGradeSQL, [gradeId], (err, results) => {
-    if (err) {
-      console.error("Error fetching students by grade:", err);
-      return res
-        .status(500)
-        .json({ error: "An error occurred while fetching students." });
-    }
-
-    res.json(results);
-  });
-});
-
-// POST a new student (no authentication required for registration)
-router.post("/addStudent", async (req, res) => {
-  const { username, password, grade_id } = req.body;
+// POST a new Teacher (no authentication required for registration)
+router.post("/addTeacher", async (req, res) => {
+  const { username, password } = req.body;
 
   if (!username || !password) {
     return res
@@ -89,15 +70,15 @@ router.post("/addStudent", async (req, res) => {
       .json({ error: "Username and password are required." });
   }
 
-  const createStudentSQL =
-    "INSERT INTO STUDENT (username, password, grade_id) VALUES (?, ?, ?)";
-  const values = [username, password, grade_id || null];
+  const createTeacherSQL =
+    "INSERT INTO TEACHER (username, password) VALUES (?, ?)";
+  const values = [username, password || null];
 
-  db.query(createStudentSQL, values, (err, results) => {
+  db.query(createTeacherSQL, values, (err, results) => {
     if (err) {
-      console.error("Error creating student:", err);
+      console.error("Error creating teacher:", err);
       res.status(500).json({
-        error: "An error occurred while creating the student.",
+        error: "An error occurred while creating the teacher.",
         errorMessage: err.message,
       });
     } else {
@@ -106,9 +87,9 @@ router.post("/addStudent", async (req, res) => {
   });
 });
 
-// PATCH route to partially update a student's information
+// PATCH route to partially update a teacher's information
 router.patch("/update/:oldUsername", async (req, res) => {
-  const { username, password, grade_id } = req.body;
+  const { username, password } = req.body;
   const oldUsername = req.params.oldUsername;
 
   if (!oldUsername) {
@@ -118,33 +99,32 @@ router.patch("/update/:oldUsername", async (req, res) => {
   const updateValues = {};
   if (username) updateValues.username = username;
   if (password) updateValues.password = password;
-  if (grade_id) updateValues.grade_id = grade_id;
 
   if (Object.keys(updateValues).length === 0) {
     return res.status(400).json({ error: "No fields to update." });
   }
 
-  const updateStudentSQL = "UPDATE STUDENT SET ? WHERE username = ?";
+  const updateTeacherSQL = "UPDATE TEACHER SET ? WHERE username = ?";
   const updateQuery = [updateValues, oldUsername];
 
-  db.query(updateStudentSQL, updateQuery, (err, results) => {
+  db.query(updateTeacherSQL, updateQuery, (err, results) => {
     if (err) {
-      console.error("Error updating student:", err);
+      console.error("Error updating Teacher:", err);
       res.status(500).json({
-        error: "An error occurred while updating the student.",
+        error: "An error occurred while updating the Teacher.",
         errorMessage: err.message,
       });
     } else {
       if (results.affectedRows > 0) {
-        res.json({ message: "Student updated successfully." });
+        res.json({ message: "Teacher updated successfully." });
       } else {
-        res.status(404).json({ error: "Student not found." });
+        res.status(404).json({ error: "Teacher not found." });
       }
     }
   });
 });
 
-// DELETE a student by username
+// DELETE a Teacher by username
 router.delete("/delete/:username", async (req, res) => {
   const username = req.params.username;
 
@@ -152,26 +132,26 @@ router.delete("/delete/:username", async (req, res) => {
     return res.status(400).json({ error: "Username is required." });
   }
 
-  const deleteStudentSQL = "DELETE FROM student WHERE username = ?";
+  const deleteTeacherSQL = "DELETE FROM TEACHER WHERE username = ?";
   const values = [username];
 
-  db.query(deleteStudentSQL, values, (err, results) => {
+  db.query(deleteTeacherSQL, values, (err, results) => {
     if (err) {
-      console.error("Error deleting student:", err);
+      console.error("Error deleting Teacher:", err);
       res
         .status(500)
-        .json({ error: "An error occurred while deleting the student." });
+        .json({ error: "An error occurred while deleting the Teacher." });
     } else {
       if (results.affectedRows > 0) {
-        res.json({ message: "Student deleted successfully." });
+        res.json({ message: "Teacher deleted successfully." });
       } else {
-        res.status(404).json({ error: "Student not found." });
+        res.status(404).json({ error: "Teacher not found." });
       }
     }
   });
 });
 
-// POST login for students
+// POST login for teachers
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -181,16 +161,16 @@ router.post("/login", async (req, res) => {
       .json({ error: "Username and password are required." });
   }
 
-  const authenticateStudentSQL =
-    "SELECT * FROM student WHERE username = ? AND password = ?";
+  const authenticateTeacherSQL =
+    "SELECT * FROM TEACHER WHERE username = ? AND password = ?";
   const values = [username, password];
 
-  db.query(authenticateStudentSQL, values, (err, results) => {
+  db.query(authenticateTeacherSQL, values, (err, results) => {
     if (err) {
-      console.error("Error authenticating student:", err);
+      console.error("Error authenticating teacher:", err);
       res
         .status(500)
-        .json({ error: "An error occurred while authenticating the student." });
+        .json({ error: "An error occurred while authenticating the teacher." });
     } else {
       if (results.length > 0) {
         const accessToken = jwt.sign(
@@ -200,8 +180,8 @@ router.post("/login", async (req, res) => {
         res.json({
           accessToken,
           username: results[0].username,
-          grade_id: results[0].grade_id,
-          student_id: results[0].id,
+          //   grade_id: results[0].grade_id,
+          //   student_id: results[0].id,
         });
       } else {
         res.status(401).json({ error: "Invalid credentials." });

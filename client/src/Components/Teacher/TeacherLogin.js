@@ -30,19 +30,21 @@ function TeacherLogin({ onLogin }) {
     };
 
     axios
-      .post("http://localhost:8080/authTeachers/login", data)
+      .post("http://localhost:8080/Teacher/login", data)
       .then((response) => {
         if (response.data.error) {
           alert(response.data.error);
         } else {
           // if the request is successful we push accessToken, name and grade into the sessionStorage in order to use them in the Dashboard
-          const { accessToken, name } = response.data;
+          const { accessToken, username } = response.data;
           sessionStorage.setItem("accessToken", accessToken);
           sessionStorage.setItem("username", username);
-          // sessionStorage.setItem('type', 'student');
           onLogin(); // Invoke the onLogin callback DAAAAAAAAAAAAAAAAAAAAAAAAAAMN
           navigate("/TeacherDash");
         }
+      })
+      .catch((error) => {
+        alert("Not on my watch mannn");
       });
   };
 

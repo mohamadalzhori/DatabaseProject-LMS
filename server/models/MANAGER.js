@@ -1,7 +1,7 @@
 const createTableSQL = `
 CREATE TABLE IF NOT EXISTS MANAGER (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(255),
+  username VARCHAR(255) UNIQUE,
   password VARCHAR(255)
 );
 `;

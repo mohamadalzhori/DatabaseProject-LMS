@@ -1,7 +1,7 @@
 const createTableSQL = `
 CREATE TABLE IF NOT EXISTS STUDENT (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(255),
+  username VARCHAR(255) UNIQUE,
   password VARCHAR(255),
   grade_id INT,
   FOREIGN KEY (grade_id) REFERENCES GRADE(id)

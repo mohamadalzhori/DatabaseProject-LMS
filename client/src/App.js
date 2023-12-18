@@ -16,6 +16,7 @@ import TeacherDash from "./Components/Teacher/TeacherDash";
 import ManagerDash from "./Components/Manager/ManagerDash";
 import OnlineCourses from "./Components/Student/OnlineCourses";
 import AllStudents from "./Components/Manager/AllStudents";
+import StudentProfile from "./Components/Student/StudentProfile";
 
 function App() {
   // the !! converts the value to boolean if accessToken= value then true, if null then false
@@ -76,6 +77,9 @@ function App() {
                     <NavDropdown.Item as={Link} to="/studentDash">
                       Dashboard
                     </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/studentProfile">
+                      Profile
+                    </NavDropdown.Item>
                     <NavDropdown.Item onClick={handleLogout}>
                       Logout
                     </NavDropdown.Item>
@@ -121,6 +125,7 @@ function App() {
           />
 
           <Route path="/studentDash" element={<StudentDash />} />
+          <Route path="/studentProfile" element={<StudentProfile />} />
           <Route path="/teacherDash" element={<TeacherDash />} />
           <Route path="/managerDash" element={<ManagerDash />} />
           <Route path="/OnlineCourses" element={<OnlineCourses />} />
