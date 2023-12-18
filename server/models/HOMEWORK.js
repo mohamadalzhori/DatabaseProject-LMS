@@ -15,9 +15,9 @@ module.exports = {
   initializeTable: (db) => {
     db.query(createTableSQL, (err, results) => {
       if (err) {
-        console.error('Error creating HOMEWORK table:', err);
+        console.error("Error creating HOMEWORK table:", err);
       } else {
-        console.log('HOMEWORK table created successfully');
+        console.log("HOMEWORK table ready");
       }
     });
   },

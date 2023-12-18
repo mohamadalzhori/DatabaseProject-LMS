@@ -13,9 +13,9 @@ module.exports = {
   initializeTable: (db) => {
     db.query(createTableSQL, (err, results) => {
       if (err) {
-        console.error('Error creating ATTENDANCE table:', err);
+        console.error("Error creating ATTENDANCE table:", err);
       } else {
-        console.log('ATTENDANCE table created successfully');
+        console.log("ATTENDANCE table ready");
       }
     });
   },

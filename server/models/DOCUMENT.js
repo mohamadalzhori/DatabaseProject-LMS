@@ -15,7 +15,7 @@ module.exports = {
       if (err) {
         console.error("Error creating DOCUMENT table:", err);
       } else {
-        console.log("DOCUMENT table created successfully");
+        console.log("DOCUMENT table ready");
       }
     });
   },

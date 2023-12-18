@@ -14,9 +14,9 @@ module.exports = {
   initializeTable: (db) => {
     db.query(createTableSQL, (err, results) => {
       if (err) {
-        console.error('Error creating SUCCESS_STORY table:', err);
+        console.error("Error creating SUCCESS_STORY table:", err);
       } else {
-        console.log('SUCCESS_STORY table created successfully');
+        console.log("SUCCESS_STORY table ready");
       }
     });
   },

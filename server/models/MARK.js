@@ -14,9 +14,9 @@ module.exports = {
   initializeTable: (db) => {
     db.query(createTableSQL, (err, results) => {
       if (err) {
-        console.error('Error creating MARK table:', err);
+        console.error("Error creating MARK table:", err);
       } else {
-        console.log('MARK table created successfully');
+        console.log("MARK table ready");
       }
     });
   },

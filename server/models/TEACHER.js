@@ -10,9 +10,9 @@ module.exports = {
   initializeTable: (db) => {
     db.query(createTableSQL, (err, results) => {
       if (err) {
-        console.error('Error creating TEACHER table:', err);
+        console.error("Error creating TEACHER table:", err);
       } else {
-        console.log('TEACHER table created successfully');
+        console.log("TEACHER table ready");
       }
     });
   },

@@ -11,14 +11,13 @@ CREATE TABLE IF NOT EXISTS TEACHER_ASSIGNMENT (
 );
 `;
 
-
 module.exports = {
   initializeTable: (db) => {
     db.query(createTableSQL, (err, results) => {
       if (err) {
-        console.error('Error creating TEACHER_ASSIGNMENT table:', err);
+        console.error("Error creating TEACHER_ASSIGNMENT table:", err);
       } else {
-        console.log('TEACHER_ASSIGNMENT table created successfully');
+        console.log("TEACHER_ASSIGNMENT table ready");
       }
     });
   },

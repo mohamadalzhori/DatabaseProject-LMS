@@ -13,9 +13,9 @@ module.exports = {
   initializeTable: (db) => {
     db.query(createTableSQL, (err, results) => {
       if (err) {
-        console.error('Error creating LESSON table:', err);
+        console.error("Error creating LESSON table:", err);
       } else {
-        console.log('LESSON table created successfully');
+        console.log("LESSON table ready");
       }
     });
   },

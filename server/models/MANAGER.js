@@ -12,7 +12,7 @@ module.exports = {
       if (err) {
         console.error("Error creating MANAGER table:", err);
       } else {
-        console.log("MANAGER table created successfully");
+        console.log("MANAGER table ready");
       }
     });
   },
