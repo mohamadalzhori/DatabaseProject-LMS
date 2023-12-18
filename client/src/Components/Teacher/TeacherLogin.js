@@ -24,6 +24,9 @@ function TeacherLogin({ onLogin }) {
     // In browsers the defaul submit reloads the page but we don't want this, we want to navigate to a certain page so we disable the default submit behaviour
     event.preventDefault();
 
+    // Clear any existing sessionStorage
+    sessionStorage.clear();
+
     const data = {
       username,
       password,
@@ -36,9 +39,11 @@ function TeacherLogin({ onLogin }) {
           alert(response.data.error);
         } else {
           // if the request is successful we push accessToken, name and grade into the sessionStorage in order to use them in the Dashboard
-          const { accessToken, username } = response.data;
+          const { accessToken, username, teacher_id } = response.data;
           sessionStorage.setItem("accessToken", accessToken);
           sessionStorage.setItem("username", username);
+          sessionStorage.setItem("teacher_id", teacher_id);
+
           onLogin(); // Invoke the onLogin callback DAAAAAAAAAAAAAAAAAAAAAAAAAAMN
           navigate("/TeacherDash");
         }

@@ -180,7 +180,7 @@ router.post("/login", async (req, res) => {
         res.json({
           accessToken,
           username: results[0].username,
-          //   grade_id: results[0].grade_id,
+          teacher_id: results[0].id,
           //   student_id: results[0].id,
         });
       } else {

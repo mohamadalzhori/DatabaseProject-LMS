@@ -16,18 +16,33 @@ function Marks() {
 
   const [studentOptions, setStudentOptions] = useState([]);
 
-  // const username = sessionStorage.getItem("username");
+  const [fetchedTeacherInfo, setFetchedTeacherInfo] = useState(null);
+  const teacher_id = sessionStorage.getItem("teacher_id");
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:8080/student/get/${username}`)
-  //     .then((response) => {
-  //       setStudent(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching student:", error);
-  //     });
-  // }, [username, newPassword]);
+  const [outsideMatchingSubject, setOutsideMatchingSubject] = useState([]);
+
+  useEffect(() => {
+    if (teacher_id) {
+      console.log("Fetching teacher info...");
+
+      axios
+        .get(`http://localhost:8080/teacherAssignment/${teacher_id}`)
+        .then((response) => {
+          setFetchedTeacherInfo(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching teacher info:", error);
+        });
+    }
+  }, [teacher_id]);
+
+  useEffect(() => {
+    console.log("Fetched TeacherInfo:", fetchedTeacherInfo);
+  }, [fetchedTeacherInfo]);
+
+  const uniqueGrades = fetchedTeacherInfo
+    ? [...new Set(fetchedTeacherInfo.map((info) => info.grade_id))]
+    : [];
 
   const handleSubmit = (event) => {
     // In browsers the defaul submit reloads the page but we don't want this, we want to navigate to a certain page so we disable the default submit behaviour
@@ -62,12 +77,20 @@ function Marks() {
       .then((response) => {
         // Assuming response.data contains the students in the selected grade
         setFetchedStudents(response.data); // Store the students in state
+
         setStudentOptions(
           response.data.map((student) => ({
             sId: student.id,
             sName: student.username,
           }))
         );
+        const matchingSubjects = fetchedTeacherInfo.filter(
+          (info) => info.grade_id.toString() === selectedGradeId
+        );
+
+        setOutsideMatchingSubject(matchingSubjects);
+
+        console.log("matching sub", matchingSubjects);
       })
       .catch((error) => {
         console.error("Error fetching students by grade:", error);
@@ -76,8 +99,16 @@ function Marks() {
   };
 
   useEffect(() => {
-    console.log(fetchedStudents);
+    console.log("fetched students:", fetchedStudents);
   }, [fetchedStudents]); // Log whenever fetchedStudents changes
+
+  const subjectNames = {
+    1: "Arabic",
+    2: "English",
+    3: "Math",
+    4: "Sciences",
+    5: "Culture",
+  };
 
   return (
     <div>
@@ -98,12 +129,9 @@ function Marks() {
                 }}
               >
                 <option>Select a Grade</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
+                {uniqueGrades.map((grade) => (
+                  <option key={grade} value={grade}>{`Grade ${grade}`}</option>
+                ))}
               </Form.Select>
             </Form.Group>
           </Col>
@@ -148,11 +176,11 @@ function Marks() {
               }}
             >
               <option value="">Select a Subject</option>
-              <option value="1">Arabic</option>
-              <option value="2">English</option>
-              <option value="3">Math</option>
-              <option value="4">Sciences</option>
-              <option value="5">Islamic Sciences</option>
+              {outsideMatchingSubject.map((subject, index) => (
+                <option key={index} value={subject.subject_id}>
+                  {subjectNames[subject.subject_id]}
+                </option>
+              ))}
             </Form.Select>
           </Col>
         </Row>

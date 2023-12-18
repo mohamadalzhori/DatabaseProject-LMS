@@ -24,6 +24,9 @@ function StudentLogin({ onLogin }) {
     // In browsers the defaul submit reloads the page but we don't want this, we want to navigate to a certain page so we disable the default submit behaviour
     event.preventDefault();
 
+    // Clear any existing sessionStorage
+    sessionStorage.clear();
+
     const data = {
       username,
       password,
