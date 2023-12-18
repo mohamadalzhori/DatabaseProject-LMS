@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Import the models
 const models = [
+  require("./models/MANAGER"),
   require("./models/GRADE"),
   require("./models/STUDENT"),
   require("./models/TEACHER"),
