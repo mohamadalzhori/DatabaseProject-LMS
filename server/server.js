@@ -34,6 +34,7 @@ models.forEach((model) => model.initializeTable(db));
 // Routers
 app.use("/student", require("./routes/Student"));
 app.use("/teacher", require("./routes/Teacher"));
+app.use("/successStory", require("./routes/SuccessStory"));
 app.use("/teacherAssignment", require("./routes/TeacherAssignment"));
 app.use("/manager", require("./routes/Manager"));
 app.use("/lesson", require("./routes/Lesson"));

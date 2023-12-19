@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Table from "react-bootstrap/Table";
+
 import Accordion from "react-bootstrap/Accordion";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
@@ -14,7 +16,7 @@ function StudentDash() {
   const [documents, setDocuments] = useState([]);
   const [HW, setHW] = useState([]);
   const [marks, setMarks] = useState([]);
-  const [activeSection, setActiveSection] = useState("homeworks");
+  const [activeSection, setActiveSection] = useState("lessons");
   const [activeSubject, setActiveSubject] = useState("1");
   const [lessonDocuments, setLessonDocuments] = useState({});
 
@@ -176,80 +178,91 @@ function StudentDash() {
           <hr />
           <h1>Lessons</h1>
           <hr />
-          <div>
-            {lessons.map((lesson, index) => {
-              const documentsForLesson = lessonDocuments[lesson.id] || [];
+          {lessons.map((lesson) => {
+            const documentsForLesson = lessonDocuments[lesson.id] || [];
 
-              // now in each lesson we are going to created a filtered array of documents that's related to this lesson then map over it to print them all
-              //const lessonDocuments = documents.filter(
-              //  (document) => document.lesson_id === lesson.id
-              //);
-              return (
-                <div key={lesson.id} eventKey={index.toString()}>
-                  <h1>{lesson.name}</h1>
-                  <h1>{lesson.id}</h1>
-                  {/* invoke method 1 here */}
-                  <div>
+            return (
+              <div key={lesson.id} className="w-75 mx-auto">
+                <h2 className="mb-3">{lesson.name}</h2>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Document Title</th>
+                      <th>Document URL</th>
+                      <th>Document Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
                     {documentsForLesson.map((document) => (
-                      <div key={document.id}>
-                        <p>Document Title: {document.title}</p>
-                        <p>
-                          Document URL:{" "}
+                      <tr key={document.id}>
+                        <td>{document.title}</td>
+                        <td>
                           <a href={document.url} target="_blank">
                             {document.url}
                           </a>
-                        </p>
-                        <p>Document Description: {document.description}</p>
-                      </div>
+                        </td>
+                        <td>{document.description}</td>
+                      </tr>
                     ))}
-                    <hr />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                  </tbody>
+                </Table>
+              </div>
+            );
+          })}
         </div>
       )}
+
       {activeSection === "homeworks" && (
         <div>
           <hr />
           <h1>Homeworks</h1>
           <hr />
-          <div>
-            {HW.map((homework) => (
-              <div key={homework.id}>
-                <h1>{homework.title}</h1>
-                <div>
-                  <p>Description: {homework.description}</p>
-                  <p>
-                    Due Date:
-                    {new Date(homework.due_date).toLocaleDateString()} at{" "}
-                    {new Date(homework.due_date).toLocaleTimeString()}
-                  </p>
-                </div>
-                <hr />
-              </div>
-            ))}
+          <div className="w-75 mx-auto">
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Due Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {HW.map((homework) => (
+                  <tr key={homework.id}>
+                    <td>{homework.title}</td>
+                    <td>{homework.description}</td>
+                    <td>{new Date(homework.due_date).toLocaleDateString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
           </div>
         </div>
       )}
+
       {activeSection === "marks" && (
         <div>
           {/* Marks content */}
+          <hr />
           <h1>Marks</h1>
           <hr />
-          <div>
-            {marks.map((mark, index) => {
-              return (
-                <div key={mark.id} eventKey={index.toString()}>
-                  <h1>{mark.name}</h1>
-                  <div>
-                    <p>{mark.value}</p>
-                  </div>
-                  <hr />
-                </div>
-              );
-            })}
+          <div className="w-75 mx-auto">
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {marks.map((mark) => (
+                  <tr key={mark.id}>
+                    <td>{mark.name}</td>
+                    <td>{mark.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
           </div>
         </div>
       )}

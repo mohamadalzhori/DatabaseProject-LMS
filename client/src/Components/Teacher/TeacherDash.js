@@ -7,9 +7,10 @@ import Marks from "./Marks";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 
-import PointsDashboard from "./PointsDashboard";
+import Homeworks from "./Homeworks";
 import SuccessStories from "./SuccessStories";
 import Attendance from "./Attendance";
+import Lessons from "./Lessons";
 function TeacherDash() {
   const [fetchedStudents, setFetchedStudents] = useState("");
 
@@ -96,9 +97,12 @@ function TeacherDash() {
                   Marks Form
                 </ListGroup.Item>
                 <ListGroup.Item action href="#link2">
-                  Points Dashboard
+                  Homeworks
                 </ListGroup.Item>
                 <ListGroup.Item action href="#link3">
+                  Lessons
+                </ListGroup.Item>
+                <ListGroup.Item action href="#link5">
                   Success Stories
                 </ListGroup.Item>
                 <ListGroup.Item action href="#link4">
@@ -146,10 +150,31 @@ function TeacherDash() {
                   />
                 </Tab.Pane>
                 <Tab.Pane eventKey="#link2">
-                  <PointsDashboard />
+                  <div>
+                    {outsideMatchingSubject && (
+                      <Homeworks
+                        outsideMatchingSubject={outsideMatchingSubject}
+                        grade_id={grade_id}
+                      />
+                    )}
+                  </div>
                 </Tab.Pane>
                 <Tab.Pane eventKey="#link3">
-                  <SuccessStories />
+                  <div>
+                    {outsideMatchingSubject && (
+                      <Lessons
+                        outsideMatchingSubject={outsideMatchingSubject}
+                        grade_id={grade_id}
+                      />
+                    )}
+                  </div>
+                </Tab.Pane>
+                <Tab.Pane eventKey="#link5">
+                  <div>
+                    {outsideMatchingSubject && (
+                      <SuccessStories studentOptions={studentOptions} />
+                    )}
+                  </div>
                 </Tab.Pane>
                 <Tab.Pane eventKey="#link4">
                   <Attendance />

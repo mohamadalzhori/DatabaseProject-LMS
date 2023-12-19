@@ -26,6 +26,7 @@ function Marks(props) {
     };
 
     console.log(data);
+    console.log("student options", studentOptions);
 
     axios.post("http://localhost:8080/mark", data).then((response) => {
       if (response.data.error) {

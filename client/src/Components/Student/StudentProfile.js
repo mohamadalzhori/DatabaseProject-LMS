@@ -74,6 +74,7 @@ function StudentProfile() {
                     </Col>
                     <Col className="col-3">
                       <Button
+                        className="mt-0"
                         variant="outline-success"
                         size="sm"
                         onClick={handlePasswordToggle}

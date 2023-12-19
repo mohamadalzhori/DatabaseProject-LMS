@@ -54,7 +54,7 @@ function TeacherLogin({ onLogin }) {
   };
 
   return (
-    <div className="login template d-flex justify-content-center align-items-center vh-100 bg-primary">
+    <div className="login template d-flex justify-content-center align-items-center vh-100 ">
       <div className="form-container p-5 rounded bg-white">
         <Form onSubmit={handleSubmit}>
           <h3>Teachers Log In</h3>
@@ -77,7 +77,7 @@ function TeacherLogin({ onLogin }) {
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
+          <Button variant="success" type="submit">
             Submit
           </Button>
         </Form>
