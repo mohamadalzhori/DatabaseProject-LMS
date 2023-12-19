@@ -6,43 +6,13 @@ import Row from "react-bootstrap/Row";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 
-function Marks() {
+function Marks(props) {
   const [name, setmarkName] = useState("");
   const [value, setmarkValue] = useState("");
   const [student_id, setStudentId] = useState("");
   const [subject_id, setSubjectId] = useState("");
-  const [grade_id, setGradeId] = useState("");
-  const [fetchedStudents, setFetchedStudents] = useState("");
 
-  const [studentOptions, setStudentOptions] = useState([]);
-
-  const [fetchedTeacherInfo, setFetchedTeacherInfo] = useState(null);
-  const teacher_id = sessionStorage.getItem("teacher_id");
-
-  const [outsideMatchingSubject, setOutsideMatchingSubject] = useState([]);
-
-  useEffect(() => {
-    if (teacher_id) {
-      console.log("Fetching teacher info...");
-
-      axios
-        .get(`http://localhost:8080/teacherAssignment/${teacher_id}`)
-        .then((response) => {
-          setFetchedTeacherInfo(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching teacher info:", error);
-        });
-    }
-  }, [teacher_id]);
-
-  useEffect(() => {
-    console.log("Fetched TeacherInfo:", fetchedTeacherInfo);
-  }, [fetchedTeacherInfo]);
-
-  const uniqueGrades = fetchedTeacherInfo
-    ? [...new Set(fetchedTeacherInfo.map((info) => info.grade_id))]
-    : [];
+  const { studentOptions, outsideMatchingSubject } = props;
 
   const handleSubmit = (event) => {
     // In browsers the defaul submit reloads the page but we don't want this, we want to navigate to a certain page so we disable the default submit behaviour
@@ -71,37 +41,6 @@ function Marks() {
     });
   };
 
-  const handleGradeSelection = (selectedGradeId) => {
-    axios
-      .get(`http://localhost:8080/student/get/grade/${selectedGradeId}`)
-      .then((response) => {
-        // Assuming response.data contains the students in the selected grade
-        setFetchedStudents(response.data); // Store the students in state
-
-        setStudentOptions(
-          response.data.map((student) => ({
-            sId: student.id,
-            sName: student.username,
-          }))
-        );
-        const matchingSubjects = fetchedTeacherInfo.filter(
-          (info) => info.grade_id.toString() === selectedGradeId
-        );
-
-        setOutsideMatchingSubject(matchingSubjects);
-
-        console.log("matching sub", matchingSubjects);
-      })
-      .catch((error) => {
-        console.error("Error fetching students by grade:", error);
-        // Handle error if needed
-      });
-  };
-
-  useEffect(() => {
-    console.log("fetched students:", fetchedStudents);
-  }, [fetchedStudents]); // Log whenever fetchedStudents changes
-
   const subjectNames = {
     1: "Arabic",
     2: "English",
@@ -112,34 +51,6 @@ function Marks() {
 
   return (
     <div>
-      <Form>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label>
-                <b>Grade ID</b>
-              </Form.Label>
-              <Form.Select
-                required
-                aria-label="Default select example"
-                value={grade_id}
-                onChange={(e) => {
-                  setGradeId(e.target.value);
-                  handleGradeSelection(e.target.value);
-                }}
-              >
-                <option>Select a Grade</option>
-                {uniqueGrades.map((grade) => (
-                  <option key={grade} value={grade}>{`Grade ${grade}`}</option>
-                ))}
-              </Form.Select>
-            </Form.Group>
-          </Col>
-          <Col></Col>
-          <Col></Col>
-          <Col></Col>
-        </Row>
-      </Form>
       <h3>Kindly fill out the following form to submit the marks: </h3>
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
