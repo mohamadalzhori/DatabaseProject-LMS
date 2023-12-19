@@ -5,6 +5,8 @@ CREATE TABLE IF NOT EXISTS SUCCESS_STORY (
     name VARCHAR(255),
     description VARCHAR(255),
     student_id INT,
+    grade INT,
+    subject_id INT,
     FOREIGN KEY (student_id) REFERENCES STUDENT(id)
   );
   
