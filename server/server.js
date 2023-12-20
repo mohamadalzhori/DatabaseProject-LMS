@@ -26,7 +26,6 @@ const models = [
   require("./models/HOMEWORK"),
   require("./models/DOCUMENT"),
   require("./models/TEACHER_ASSIGNMENT"),
-  require("./models/ATTENDANCE"),
   require("./models/MARK"),
 ];
 models.forEach((model) => model.initializeTable(db));

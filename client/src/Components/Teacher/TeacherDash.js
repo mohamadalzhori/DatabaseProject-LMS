@@ -9,7 +9,6 @@ import axios from "axios";
 
 import Homeworks from "./Homeworks";
 import SuccessStories from "./SuccessStories";
-import Attendance from "./Attendance";
 import Lessons from "./Lessons";
 function TeacherDash() {
   const [fetchedStudents, setFetchedStudents] = useState("");
@@ -105,9 +104,6 @@ function TeacherDash() {
                 <ListGroup.Item action href="#link5">
                   Success Stories
                 </ListGroup.Item>
-                <ListGroup.Item action href="#link4">
-                  Attendance
-                </ListGroup.Item>
               </ListGroup>
             </Col>
             <Col style={{ marginLeft: "2%" }}>
@@ -175,9 +171,6 @@ function TeacherDash() {
                       <SuccessStories studentOptions={studentOptions} />
                     )}
                   </div>
-                </Tab.Pane>
-                <Tab.Pane eventKey="#link4">
-                  <Attendance />
                 </Tab.Pane>
               </Tab.Content>
             </Col>

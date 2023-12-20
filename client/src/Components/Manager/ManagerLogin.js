@@ -45,7 +45,7 @@ function ManagersLogin({ onLogin }) {
   };
 
   return (
-    <div className="login template d-flex justify-content-center align-items-center vh-100 bg-primary">
+    <div className="login template d-flex justify-content-center align-items-center vh-100 ">
       <div className="form-container p-5 rounded bg-white">
         <Form onSubmit={handleSubmit}>
           <h3>Manager Log In</h3>
