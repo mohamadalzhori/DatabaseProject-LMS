@@ -18,10 +18,9 @@ function Cards() {
             className="card bg-c-blue order-card"
           >
             <div className="card-block">
-              <h6 className="m-b-20">Total Teachers</h6>
+              <h6 className="m-b-20">All Teachers</h6>
               <h2 className="d-flex justify-content-between align-items-center">
                 <FontAwesomeIcon icon={faChalkboardTeacher} />
-                <span className="ml-auto">1</span>
               </h2>
             </div>
           </Link>
@@ -32,10 +31,9 @@ function Cards() {
             className="card bg-c-green order-card"
           >
             <div className="card-block">
-              <h6 className="m-b-20">Total Students</h6>
+              <h6 className="m-b-20">All Students</h6>
               <h2 className="d-flex justify-content-between align-items-center">
                 <FontAwesomeIcon icon={faUserGraduate} />
-                <span className="ml-auto">1</span>
               </h2>
             </div>
           </Link>
