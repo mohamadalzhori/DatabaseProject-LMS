@@ -1,5 +1,7 @@
 import React from "react";
 import "./Hero.css";
+import Button from "react-bootstrap/Button";
+
 import { Link } from "react-router-dom";
 
 const Hero = () => {
@@ -22,6 +24,11 @@ const Hero = () => {
               </Link>
               <Link to="/TeacherLogin">
                 <button>TEACHER LOGIN</button>
+              </Link>
+            </div>
+            <div className="button ">
+              <Link to="/success">
+                <button>SUCCESS STORIES</button>
               </Link>
             </div>
           </div>

@@ -39,6 +39,22 @@ router.get("/get/", async (req, res) => {
   });
 });
 
+router.get("/get/allinfo", async (req, res) => {
+  const getAllTeacherSQL =
+    "SELECT T.id,T.username,T.password,T.firstname,T.lastname,T.phoneNb,GROUP_CONCAT(TA.grade_id) AS grade_ids,GROUP_CONCAT(TA.subject_id) AS subject_ids FROM TEACHER T LEFT JOIN TEACHER_ASSIGNMENT TA ON T.id = TA.teacher_id GROUP BY T.id ; ";
+
+  db.query(getAllTeacherSQL, (err, results) => {
+    if (err) {
+      console.error("Error fetching teachers:", err);
+      return res
+        .status(500)
+        .json({ error: "An error occurred while fetching teachers." });
+    }
+
+    res.json(results);
+  });
+});
+
 router.get("/get/:username", async (req, res) => {
   const username = req.params.username;
 
@@ -62,17 +78,17 @@ router.get("/get/:username", async (req, res) => {
 
 // POST a new Teacher (no authentication required for registration)
 router.post("/addTeacher", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, firstname, lastname, phoneNb } = req.body;
 
-  if (!username || !password) {
+  if (!username || !password || !firstname || !lastname || !phoneNb) {
     return res
       .status(400)
       .json({ error: "Username and password are required." });
   }
 
   const createTeacherSQL =
-    "INSERT INTO TEACHER (username, password) VALUES (?, ?)";
-  const values = [username, password || null];
+    "INSERT INTO TEACHER (username, password, firstname,lastname,phoneNb) VALUES (?, ?,?,?,?)";
+  const values = [username, password, firstname, lastname, phoneNb || null];
 
   db.query(createTeacherSQL, values, (err, results) => {
     if (err) {
@@ -125,15 +141,15 @@ router.patch("/update/:oldUsername", async (req, res) => {
 });
 
 // DELETE a Teacher by username
-router.delete("/delete/:username", async (req, res) => {
-  const username = req.params.username;
+router.delete("/delete/:id", async (req, res) => {
+  const id = req.params.id;
 
-  if (!username) {
-    return res.status(400).json({ error: "Username is required." });
+  if (!id) {
+    return res.status(400).json({ error: "id is required." });
   }
 
-  const deleteTeacherSQL = "DELETE FROM TEACHER WHERE username = ?";
-  const values = [username];
+  const deleteTeacherSQL = "DELETE FROM TEACHER WHERE id = ?";
+  const values = [id];
 
   db.query(deleteTeacherSQL, values, (err, results) => {
     if (err) {

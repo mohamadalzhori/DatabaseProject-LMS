@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS SUCCESS_STORY (
     student_id INT,
     grade INT,
     subject_id INT,
-    FOREIGN KEY (student_id) REFERENCES STUDENT(id)
+    FOREIGN KEY (student_id) REFERENCES STUDENT(id) ON DELETE CASCADE
   );
   
 `;

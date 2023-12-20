@@ -81,17 +81,30 @@ router.get("/get/grade/:gradeId", async (req, res) => {
 
 // POST a new student (no authentication required for registration)
 router.post("/addStudent", async (req, res) => {
-  const { username, password, grade_id } = req.body;
+  const { username, password, grade_id, firstname, lastname, phoneNb } =
+    req.body;
 
-  if (!username || !password) {
-    return res
-      .status(400)
-      .json({ error: "Username and password are required." });
+  if (
+    !username ||
+    !password ||
+    !grade_id ||
+    !firstname ||
+    !lastname ||
+    !phoneNb
+  ) {
+    return res.status(400).json({ error: "All Fields are required." });
   }
 
   const createStudentSQL =
-    "INSERT INTO STUDENT (username, password, grade_id) VALUES (?, ?, ?)";
-  const values = [username, password, grade_id || null];
+    "INSERT INTO STUDENT (username, password, grade_id, firstname,lastname,phoneNb) VALUES (?, ?, ?,?,?,?)";
+  const values = [
+    username,
+    password,
+    grade_id,
+    firstname,
+    lastname,
+    phoneNb || null,
+  ];
 
   db.query(createStudentSQL, values, (err, results) => {
     if (err) {
@@ -152,15 +165,13 @@ router.delete("/delete/:username", async (req, res) => {
     return res.status(400).json({ error: "Username is required." });
   }
 
-  const deleteStudentSQL = "DELETE FROM student WHERE username = ?";
+  const deleteStudentSQL = "DELETE FROM STUDENT WHERE username = ?";
   const values = [username];
 
   db.query(deleteStudentSQL, values, (err, results) => {
     if (err) {
       console.error("Error deleting student:", err);
-      res
-        .status(500)
-        .json({ error: "An error occurred while deleting the student." });
+      res.status(500).json({ err });
     } else {
       if (results.affectedRows > 0) {
         res.json({ message: "Student deleted successfully." });

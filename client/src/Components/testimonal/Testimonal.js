@@ -33,7 +33,7 @@ const Testimonal = () => {
         <div className="container">
           <div id="heading">
             <h3>STORIES </h3>
-            <h1>Our Successful Students </h1>
+            <h1>Our Stellar Students </h1>
           </div>
 
           <div className="content grid2">
