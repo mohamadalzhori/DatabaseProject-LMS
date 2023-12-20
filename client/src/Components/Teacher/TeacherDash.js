@@ -88,13 +88,10 @@ function TeacherDash() {
         <h3>Hello, {sessionStorage.getItem("username")}</h3>
       </div>
       <div className="d-flex justify-content-center">
-        <Tab.Container defaultActiveKey="#link1">
+        <Tab.Container defaultActiveKey="#link2">
           <Row>
             <Col sm={2}>
               <ListGroup>
-                <ListGroup.Item action href="#link1">
-                  Marks Form
-                </ListGroup.Item>
                 <ListGroup.Item action href="#link2">
                   Homeworks
                 </ListGroup.Item>
@@ -103,6 +100,9 @@ function TeacherDash() {
                 </ListGroup.Item>
                 <ListGroup.Item action href="#link5">
                   Success Stories
+                </ListGroup.Item>
+                <ListGroup.Item action href="#link1">
+                  Marks Form
                 </ListGroup.Item>
               </ListGroup>
             </Col>
@@ -139,12 +139,7 @@ function TeacherDash() {
                     <Col></Col>
                   </Row>
                 </Form>
-                <Tab.Pane eventKey="#link1">
-                  <Marks
-                    studentOptions={studentOptions}
-                    outsideMatchingSubject={outsideMatchingSubject}
-                  />
-                </Tab.Pane>
+
                 <Tab.Pane eventKey="#link2">
                   <div>
                     {outsideMatchingSubject && (
@@ -171,6 +166,12 @@ function TeacherDash() {
                       <SuccessStories studentOptions={studentOptions} />
                     )}
                   </div>
+                </Tab.Pane>
+                <Tab.Pane eventKey="#link1">
+                  <Marks
+                    studentOptions={studentOptions}
+                    outsideMatchingSubject={outsideMatchingSubject}
+                  />
                 </Tab.Pane>
               </Tab.Content>
             </Col>

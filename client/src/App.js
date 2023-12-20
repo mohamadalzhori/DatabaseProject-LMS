@@ -134,6 +134,9 @@ function App() {
                       title={sessionStorage.getItem("username")}
                       id="collasible-nav-dropdown"
                     >
+                      <NavDropdown.Item as={Link} to="/teacherProfile">
+                        Profile
+                      </NavDropdown.Item>
                       <NavDropdown.Item onClick={handleLogoutTeacher}>
                         Logout
                       </NavDropdown.Item>
