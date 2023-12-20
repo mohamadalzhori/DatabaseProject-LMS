@@ -105,7 +105,7 @@ router.post("/addTeacher", async (req, res) => {
 
 // PATCH route to partially update a teacher's information
 router.patch("/update/:oldUsername", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, firstname, lastname, phoneNb } = req.body;
   const oldUsername = req.params.oldUsername;
 
   if (!oldUsername) {
@@ -115,6 +115,9 @@ router.patch("/update/:oldUsername", async (req, res) => {
   const updateValues = {};
   if (username) updateValues.username = username;
   if (password) updateValues.password = password;
+  if (firstname) updateValues.firstname = firstname;
+  if (lastname) updateValues.lastname = lastname;
+  if (phoneNb) updateValues.phoneNb = phoneNb;
 
   if (Object.keys(updateValues).length === 0) {
     return res.status(400).json({ error: "No fields to update." });

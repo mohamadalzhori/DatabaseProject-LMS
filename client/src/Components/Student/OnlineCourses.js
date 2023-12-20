@@ -63,7 +63,7 @@ const OnlineCourses = ({ setActiveSubject }) => {
                   <img src={val.hoverCover} alt="" className="show" />
                 </div>
                 <h1>{val.courseName}</h1>
-                <span>{val.NbofHW}</span>
+                {/* <span>{val.NbofHW}</span> */}
               </div>
             ))}
           </div>

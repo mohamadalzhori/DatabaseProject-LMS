@@ -20,6 +20,7 @@ import StudentProfile from "./Components/Student/StudentProfile";
 import Documents from "./Components/Teacher/Documents";
 import Testimonal from "./Components/testimonal/Testimonal";
 import AllTeachers from "./Components/Manager/AllTeachers";
+import TeacherProfile from "./Components/Teacher/TeacherProfile";
 
 function App() {
   // the !! converts the value to boolean if accessToken= value then true, if null then false
@@ -192,6 +193,7 @@ function App() {
 
           <Route path="/studentDash" element={<StudentDash />} />
           <Route path="/studentProfile" element={<StudentProfile />} />
+          <Route path="/teacherProfile" element={<TeacherProfile />} />
           <Route path="/teacherDash" element={<TeacherDash />} />
           <Route path="/document" element={<Documents />} />
           <Route path="/success" element={<Testimonal />} />
